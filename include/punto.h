@@ -21,7 +21,23 @@ public:
     Punto (double latit = 0, double longit = 0, const string& descr = "")
 	: latitud(latit), longitud(longit), descripcion(descr)
     {}
+
+
+    friend istream& operator >> (istream& input, Punto& leido);
 };
 
+
+friend istream& operator >> (istream& input, Punto& leido) {
+    /**
+     * El formato de un punto será:
+     *    (<latitud>,<longitud>)
+     * Leemos cada una de las partes de la ruta. 
+     */
+    input.ignore();
+    input >> leido.latitud;
+    input.ignore();
+    input >> leido.longitud;
+    input.ignore();
+}
 
 #endif

@@ -11,11 +11,25 @@
  */
 class Almacen {
 private:
-    list<Ruta> rutas;
+    map<string,Ruta> rutas;
     multimap<Punto,Ruta> puntos;
 
-public:
     
+
+
+public:
+    /**
+     * Añade una ruta al almacén de rutas.
+     * @param ruta Ruta a añadir.
+     */
+    void insertar_ruta (const Ruta& nueva_ruta) {
+	rutas.insert(nueva_ruta);
+    }
+   
+    /**
+     * 
+     */
+ 
 };
 
 #endif
