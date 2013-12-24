@@ -3,7 +3,10 @@
 
 #include <string>
 #include <list>
+#include "punto.h"
 
+using std::string;
+using std::list;
 
 /**
  * T.D.A. Ruta
@@ -18,43 +21,15 @@ private:
     list<Punto*> puntos;
 
     /**
-     * 
+     * Código de la ruta.
      */
     string codigo;
 
 public:
-    
-    friend istream& operator >> (istream& input, Ruta& leida); 
+    friend istream& operator >> (istream& input, Ruta& leida);
+    friend class Almacen;
 };
 
-
-
-
-/**
- * Lee una ruta, guardando su información en la ruta indicada.
- * @param input Flujo de lectura de la ruta.
- * @param leida Ruta sobre la que se escribirá.
- */
-istream& operator >> (istream& input, Ruta& leida) {
-    /**
-     * El formato de una ruta será:
-     *    <codigo> <numero_puntos> <punto1> ...
-     * Leemos cada una de las partes de la ruta. 
-     */
-
-    // Lee código y tamaño.
-    int tamanio;
-    input >> leida.codigo;
-    input >> tamanio;
-
-    // Lee puntos de la nueva ruta.
-    leida.puntos.clear();
-    for (int i=0; i<tamanio; ++i) {
-	Punto nuevo_punto;
-	input >> nuevo_punto;
-	leida.puntos.insert(nuevo_punto);
-    }
-}
 
 
 #endif
