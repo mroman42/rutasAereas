@@ -27,7 +27,7 @@ public:
 };
 
 
-friend istream& operator >> (istream& input, Punto& leido) {
+istream& operator >> (istream& input, Punto& leido) {
     /**
      * El formato de un punto será:
      *    (<latitud>,<longitud>)
