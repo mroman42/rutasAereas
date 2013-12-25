@@ -10,6 +10,7 @@
 
 typedef std::string Descripcion;
 typedef std::string Codigo;
+//typedef std::list<Punto> Ruta;
 typedef std::list<Ruta*> Rutas;
 
 /**
@@ -19,7 +20,25 @@ typedef std::list<Ruta*> Rutas;
  */
 class Almacen {
 private:
-    std::map < Punto, std::pair<Descripcion, Rutas> > puntos;
+    /**
+     * Información relativa al punto y contenida en un almacén.
+     * Un punto contará con una descripción y una lista de rutas asociadas.
+     */
+    struct InfoPunto {
+	Descripcion descripcion;
+	Rutas rutas;
+    };
+
+    /**
+     * Mapa de puntos del almacén.
+     * Cada punto lleva una información asociada.
+     */
+    std::map < Punto, InfoPunto > puntos;
+
+    /**
+     * Mapa de rutas del almacén.
+     * Cada código tiene una ruta asociada.
+     */
     std::map < Codigo, Ruta > rutas;
 
     /**
@@ -28,59 +47,22 @@ private:
      */
     void leeRuta (istream& input);
 
-public:
-    //friend istream& operator >> (istream& input, Almacen& almacen);
+    /**
+     * Lee una descripción, añadiéndola al punto.
+     * Incluye la ruta en el almacén.
+     */
+    void leeDescripcion (istream& input);
 
+public:
+    /**
+     * Lee un almacén completo.
+     * @param input Flujo de lectura del almacén.
+     * @param almacen Almacén donde se leerá.
+     */
+    friend std::istream& operator >> (std::istream& input, Almacen& almacen);
 };
 
 
-/**
- * Lee un almacén completo.
- * @param input Flujo de lectura del almacén.
- * @param almacen Almacén donde se leerá.
- */
-// istream& operator >> (istream& input, Almacen& almacen) {
-//     /**
-//      * Un almacén tendrá el siguiente formato:
-//      * 
-//      * #Rutas
-//      * <ruta1>
-//      * <ruta2>
-//      * ...
-//      * #Puntos_de_Interes
-//      * <latitud1,longitud1> <descripción1>
-//      * <latitud2,longitud2> <descripción2>
-//      * ...
-//      */
 
-//     // Vacía el anterior almacén.
-//     almacen.rutas.clear();
-//     almacen.puntos.clear();
-
-//     // Lectura de rutas y de descripciones.
-//     string cabecera;
-
-//     // Rutas
-//     if (input >> cabecera and cabecera == "#Rutas") {
-// 	while (input.peek != '#')
-// 	    leeRuta(input);
-//     }
-
-//     // Descripciones
-//     if (input >> cabecera and cabecera == "#Puntos_de_Interes") {
-// 	Punto actual;
-// 	string descripcion_leida;
-
-// 	while (input >> actual) {
-// 	    input >> descripcion_leida;
-// 	    mmi localizado = puntos.find(actual);
-	        
-// 	    if (!localizado)
-// 		cerr << "ERROR, no se localizó el punto.";
-// 	    else
-// 		localizado->descripcion = descripcion_leida;
-// 	}
-//     }
-// }
 
 #endif
