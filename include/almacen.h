@@ -1,8 +1,12 @@
 #ifndef _ALMACEN_H
 #define _ALMACEN_H
 
+#include <string>
+#include <iostream>
 #include <list>
-#include <multimap>
+#include <map>
+#include "punto.h"
+#include "ruta.h"
 
 typedef std::multimap<Punto,Ruta>::iterator mmi;
 
@@ -17,6 +21,15 @@ private:
     std::map<string,Ruta> rutas;
     std::multimap<Punto,Ruta> puntos;
 
+
+    /**
+     * Añade un punto al almacén, asignándole una ruta.
+     * El almacén sólo debe hacer uso de puntos ya añadidos.
+     * @return Iterador al punto en el almacén.
+     */
+    inline mmi aniadePunto (const Punto& punto, const Ruta& ruta) {
+	return puntos.insert(std::pair<Punto,Ruta>(punto,ruta));
+    }
 
     /**
      * Inserta una ruta en el almacén.
@@ -52,8 +65,8 @@ private:
 	        Punto nuevo_punto;
 	        input >> nuevo_punto;
 
-	        mmi insertado = puntos.insert(std::pair<Punto,Ruta>(nuevo_punto, leida));
-	        leida.puntos.insert(insertado);
+	        mmi insertado = aniadePunto(nuevo_punto, leida);
+	        leida.puntos.push_back(&(insertado->first));
 	    }
 
 	    // Inserta la ruta en el almacén. 
@@ -67,6 +80,8 @@ public:
 
 /**
  * Lee un almacén completo.
+ * @param input Flujo de lectura del almacén.
+ * @param almacen Almacén donde se leerá.
  */
 istream& operator >> (istream& input, Almacen& almacen) {
     /**
@@ -101,7 +116,13 @@ istream& operator >> (istream& input, Almacen& almacen) {
 	    string descripcion_leida;
 
 	    while (input >> actual) {
-	        input >> descripcion_leida;        
+	        input >> descripcion_leida;
+	        mmi localizado = puntos.find(actual);
+	        
+	        if (!localizado)
+		    cerr << "ERROR, no se localizó el punto.";
+	        else
+		    localizado->descripcion = descripcion_leida;
 	    }
     }
 }

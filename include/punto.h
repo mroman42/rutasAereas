@@ -2,6 +2,10 @@
 #define _PUNTO_H
 
 #include <string>
+#include <iostream>
+
+using std::string;
+using std::istream;
 
 /**
  * T.D.A. Punto
@@ -44,6 +48,8 @@ istream& operator >> (istream& input, Punto& leido) {
     input.ignore();
     input >> leido.longitud;
     input.ignore();
+
+    return input;
 }
 
 #endif
