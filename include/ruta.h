@@ -50,9 +50,9 @@ istream& operator >> (istream& input, Ruta& leida) {
     // Lee puntos de la nueva ruta.
     leida.puntos.clear();
     for (int i=0; i<tamanio; ++i) {
-	Punto nuevo_punto;
-	input >> nuevo_punto;
-	leida.puntos.insert(nuevo_punto);
+	    Punto nuevo_punto;
+	    input >> nuevo_punto;
+	    leida.puntos.insert(nuevo_punto);
     }
 }
 

@@ -22,6 +22,12 @@ public:
 	: latitud(latit), longitud(longit), descripcion(descr)
     {}
 
+    /*
+     * Devuelve la información asociada al punto.
+     */
+    string get_info(){
+      return descripcion;
+    }
 
     friend istream& operator >> (istream& input, Punto& leido);
 };

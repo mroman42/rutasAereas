@@ -23,7 +23,7 @@ private:
      * Se suponen sus puntos ya insertados en el almacén.
      */
     inline void insertaRuta (const Ruta& ruta) {
-	rutas.insert(std::pair<string,Ruta>(ruta.codigo, ruta));
+	    rutas.insert(std::pair<string,Ruta>(ruta.codigo, ruta));
     }
 
 
@@ -33,42 +33,42 @@ private:
      */
     void leeRuta (istream& input) {
         /**
-	 * El formato de una ruta será:
-	 *    <codigo> <numero_puntos> <punto1> ...
-	 * Leemos cada una de las partes de la ruta. 
-	 */
+	     * El formato de una ruta será:
+	     *    <codigo> <numero_puntos> <punto1> ...
+	     * Leemos cada una de las partes de la ruta. 
+	     */
 	
-	Ruta leida;
+	    Ruta leida;
 
-	// Lee código y tamaño.
-	int tamanio;
-	input >> leida.codigo;
-	input >> tamanio;
+	    // Lee código y tamaño.
+	    int tamanio;
+	    input >> leida.codigo;
+	    input >> tamanio;
 
-	// Lee puntos de la nueva ruta.
-	// Inserta los puntos en el almacén.
-	leida.puntos.clear();
-	for (int i=0; i<tamanio; ++i) {
-	    Punto nuevo_punto;
-	    input >> nuevo_punto;
+	    // Lee puntos de la nueva ruta.
+	    // Inserta los puntos en el almacén.
+	    leida.puntos.clear();
+	    for (int i=0; i<tamanio; ++i) {
+	        Punto nuevo_punto;
+	        input >> nuevo_punto;
 
-	    mmi insertado = puntos.insert(std::pair<Punto,Ruta>(nuevo_punto, leida));
-	    leida.puntos.insert(insertado);
-	}
+	        mmi insertado = puntos.insert(std::pair<Punto,Ruta>(nuevo_punto, leida));
+	        leida.puntos.insert(insertado);
+	    }
 
-	// Inserta la ruta en el almacén. 
-	insertaRuta(leida);
+	    // Inserta la ruta en el almacén. 
+	    insertaRuta(leida);
     }
 
 public:
-    friend istream& operator << (istream& input, Almacen& almacen);
+    friend istream& operator >> (istream& input, Almacen& almacen);
 };
 
 
 /**
  * Lee un almacén completo.
  */
-istream& operator << (istream& input, Almacen& almacen) {
+istream& operator >> (istream& input, Almacen& almacen) {
     /**
      * Un almacén tendrá el siguiente formato:
      * 
@@ -91,19 +91,18 @@ istream& operator << (istream& input, Almacen& almacen) {
 
     // Rutas
     if (input >> cabecera and cabecera == "#Rutas") {
-	while (input.peek != '#')
-	    leeRuta(input);
+	    while (input.peek != '#')
+	        leeRuta(input);
     }
 
     // Descripciones
     if (input >> cabecera and cabecera == "#Puntos_de_Interes") {
-	Punto actual;
-	string descripcion_leida;
+	    Punto actual;
+	    string descripcion_leida;
 
-	while (input >> actual) {
-	    input >> descripcion_leida;
-	    
-	}
+	    while (input >> actual) {
+	        input >> descripcion_leida;        
+	    }
     }
 }
 
