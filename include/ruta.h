@@ -18,12 +18,7 @@ private:
     /**
      * Puntos que contiene la ruta.
      */
-    list<Punto*> puntos;
-
-    /**
-     * Código de la ruta.
-     */
-    string codigo;
+    list<Punto> puntos;
 
 public:
     friend class Almacen;
