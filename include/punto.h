@@ -22,34 +22,23 @@ public:
     /**
      * Constructor del punto.
      */
-    Punto (double latit = 0, double longit = 0, const string& descr = "")
-	: latitud(latit), longitud(longit), descripcion(descr)
+    Punto (double latit = 0, double longit = 0)
+	: latitud(latit), longitud(longit)
     {}
 
-    /*
-     * Devuelve la información asociada al punto.
+    /**
+     * Comparación entre puntos.
      */
-    string get_info(){
-      return descripcion;
+    inline bool operator < (const Punto& otro) const {
+	bool latitud_menor = latitud < otro.latitud;
+	bool latitud_igual = latitud == otro.latitud;
+	bool longitud_menor = longitud < otro.longitud;
+
+	return latitud_menor or (latitud_igual and longitud_menor);
     }
 
-    friend istream& operator >> (istream& input, Punto& leido);
+    friend std::istream& operator >> (std::istream& input, Punto& leido);
 };
 
-
-istream& operator >> (istream& input, Punto& leido) {
-    /**
-     * El formato de un punto será:
-     *    (<latitud>,<longitud>)
-     * Leemos cada una de las partes de la ruta. 
-     */
-    input.ignore();
-    input >> leido.latitud;
-    input.ignore();
-    input >> leido.longitud;
-    input.ignore();
-
-    return input;
-}
 
 #endif
