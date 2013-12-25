@@ -6,11 +6,10 @@
 #include <list>
 #include <map>
 #include "punto.h"
-#include "ruta.h"
 
 typedef std::string Descripcion;
 typedef std::string Codigo;
-//typedef std::list<Punto> Ruta;
+typedef std::list<Punto> Ruta;
 typedef std::list<Ruta*> Rutas;
 
 /**

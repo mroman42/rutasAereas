@@ -19,3 +19,5 @@ FLAGS = -Wall --std=c++11 -I$(INCLUDE)
 $(EXE): $(MAIN) $(SOURCES)
 	$(CC) $< -o $(EXE) $(FLAGS)
 
+clean:
+	rm -f $(EXE)
