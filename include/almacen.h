@@ -32,13 +32,13 @@ private:
      * Mapa de puntos del almacén.
      * Cada punto lleva una información asociada.
      */
-    std::map < Punto, InfoPunto > puntos;
+    std::map <Punto, InfoPunto> puntos;
 
     /**
      * Mapa de rutas del almacén.
      * Cada código tiene una ruta asociada.
      */
-    std::map < Codigo, Ruta > rutas;
+    std::map <Codigo, Ruta> rutas;
 
     /**
      * Lee una ruta, incluyendo en el almacén los puntos de la ruta.
@@ -51,7 +51,7 @@ private:
      * Incluye la ruta en el almacén.
      */
     void leeDescripcion (istream& input);
-
+    
 public:
     /**
      * Lee un almacén completo.
@@ -59,6 +59,25 @@ public:
      * @param almacen Almacén donde se leerá.
      */
     friend std::istream& operator >> (std::istream& input, Almacen& almacen);
+
+    /**
+     * Iteradores para el almacén.
+     */
+    typedef std::map<Codigo,Ruta>::iterator iterator;
+
+    /**
+     * Inicio del almacén.
+     */
+    inline iterator begin () {
+	return rutas.begin();
+    }
+
+    /**
+     * Final del almacén.
+     */
+    inline iterator end () {
+	return rutas.end();
+    }
 };
 
 

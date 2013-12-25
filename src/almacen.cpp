@@ -66,12 +66,14 @@ istream& operator >> (istream& input, Almacen& almacen) {
     // Rutas
     if (input >> cabecera and cabecera == "#Rutas") {
 	while (input.peek() != '#')
-	    leeRuta(input);
+	    almacen.leeRuta(input);
     }
 
     // Descripciones
     if (input >> cabecera and cabecera == "#Puntos_de_Interes")
 	while (input.peek())
-	    leeDescripcion(input);
+	    almacen.leeDescripcion(input);
+
+    return input;
 	
 }

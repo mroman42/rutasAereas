@@ -26,6 +26,17 @@ public:
 	: latitud(latit), longitud(longit)
     {}
 
+    /**
+     * Comparación entre puntos.
+     */
+    inline bool operator < (const Punto& otro) const {
+	bool latitud_menor = latitud < otro.latitud;
+	bool latitud_igual = latitud == otro.latitud;
+	bool longitud_menor = longitud < otro.longitud;
+
+	return latitud_menor or (latitud_igual and longitud_menor);
+    }
+
     friend std::istream& operator >> (std::istream& input, Punto& leido);
 };
 

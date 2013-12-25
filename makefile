@@ -17,7 +17,7 @@ FLAGS = -Wall --std=c++11 -I$(INCLUDE)
 
 ## COMPILACIÓN
 $(EXE): $(MAIN) $(SOURCES)
-	$(CC) $< -o $(EXE) $(FLAGS)
+	$(CC) $< $(SOURCES) -o $(EXE) $(FLAGS)
 
 clean:
 	rm -f $(EXE)
