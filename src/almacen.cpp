@@ -29,6 +29,8 @@ void Almacen::leeRuta (istream& input) {
 	actual.push_back(leido);
 	puntos[leido].rutas.push_back(&actual);
     }
+
+    retirarEspacios (input);
 }
 
 
@@ -67,14 +69,13 @@ istream& operator >> (istream& input, Almacen& almacen) {
     string cabecera;
 
     // Rutas
-    if (input >> cabecera and cabecera == "#Rutas") {
+    if (input >> cabecera and cabecera == "#Rutas")
 	while (input.peek() != '#' and input)
 	    almacen.leeRuta(input);
-    }
 
     // Descripciones
     if (input >> cabecera and cabecera == "#Puntos_de_Interes")
-	while (input.peek())
+	while (input.peek() and input)
 	    almacen.leeDescripcion(input);
 
     return input;
