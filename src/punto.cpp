@@ -17,3 +17,14 @@ istream& operator >> (istream& input, Punto& leido) {
 
     return input;
 }
+
+
+ostream& operator << (ostream& output, const Punto& punto) {
+    /**
+     * Formato de salida:
+     *    (<latitud>,<longitud>)
+     */
+    cout << '(' << punto.latitud << ',' << punto.longitud << ')';
+
+    return output;
+}

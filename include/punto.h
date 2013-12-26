@@ -16,7 +16,6 @@ class Punto {
 private:
     double latitud;
     double longitud;
-    string descripcion;
 
 public:
     /**
@@ -38,6 +37,7 @@ public:
     }
 
     friend std::istream& operator >> (std::istream& input, Punto& leido);
+    friend std::ostream& operator << (std::ostream& output, const Punto& leido);
 };
 
 

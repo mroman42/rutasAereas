@@ -21,11 +21,19 @@ int main(int argc, char * argv[]){
 	return 0;
     }
 
+
+
     // Creamos un almacén donde leemos rutas y puntos de interés.
+    // Escribimos el interior del almacén.
     Almacen almacen;
     archivo >> almacen;
 
     for (Almacen::iterator it = almacen.begin(); it != almacen.end(); ++it) {
-	
+	Codigo codigo = it->first;
+	Ruta& ruta = it->second;
+	cout << "Código " << codigo << ": ";
+
+	for (Ruta::iterator itr = ruta.begin(); itr != ruta.end(); ++itr)
+	    cout << *itr << " ";
     }
 }
