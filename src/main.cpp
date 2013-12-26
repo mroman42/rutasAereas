@@ -38,4 +38,20 @@ int main(int argc, char * argv[]){
 
 	cout << endl;
     }
+
+
+    // Pide al usuario una consulta de ruta.
+    Codigo codigo_pedido;
+    cout << "Introduzca el código de una ruta: ";
+    cin >> codigo_pedido;
+    cout << "La ruta pedida se escribe como: " << endl;
+    cout << codigo_pedido << '\t' << almacen.obtenerRuta (codigo_pedido) << endl;
+    cout << endl;
+
+    // Pide al usuario la consulta de un punto.
+    Punto punto;
+    cout << "Introduzca un punto en formato (latitud,longitud): ";
+    cin >> punto;
+    cout << "La descripción del punto " << punto << " es: " << almacen.obtenerDescripcion(punto) << endl;
+    cout << endl;
 }

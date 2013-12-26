@@ -87,3 +87,17 @@ void retirarEspacios (istream& input) {
     while (input and (leido = input.peek()) and (leido == '\t' or leido == ' ' or leido == '\n'))
 	input.get();
 }
+
+
+ostream& operator << (ostream& output, const Ruta& ruta) {
+    /**
+     * El formato de una ruta será:
+     *    <codigo> <numero_puntos> <punto1> ... 
+     */
+
+    output << ruta.size() << '\t';
+    for (Ruta::const_iterator it = ruta.begin(); it != ruta.end(); ++it)
+	output << *it << ' ';
+
+    return output;
+}

@@ -9,11 +9,29 @@ istream& operator >> (istream& input, Punto& leido) {
      *    (<latitud>,<longitud>)
      * Leemos cada una de las partes de la ruta. 
      */
-    input.ignore();
+    char separador;
+    input >> separador;
+
+    if (separador != '(') {
+	input.setstate(ios::failbit);
+	return input;
+    }
+
     input >> leido.latitud;
-    input.ignore();
+    input >> separador;
+
+    if (separador != ',') {
+	input.setstate(ios::failbit);
+	return input;
+    }
+
     input >> leido.longitud;
-    input.ignore();
+    input >> separador;
+
+    if (separador != ')') {
+	input.setstate(ios::failbit);
+	return input;
+    }
 
     return input;
 }

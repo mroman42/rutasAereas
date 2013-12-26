@@ -62,6 +62,33 @@ public:
     friend std::istream& operator >> (std::istream& input, Almacen& almacen);
 
     /**
+     * Obtiene una ruta del almacén mediante su código.
+     * @param codigo Código de la ruta.
+     * @return Ruta con el código introducido.
+     */
+    inline Ruta obtenerRuta (Codigo codigo) {
+	return rutas[codigo];
+    }
+
+    /**
+     * Obtiene la descripción de un punto del almacén.
+     * @param punto Punto cuya descripción se busca.
+     */
+    inline Descripcion obtenerDescripcion (Punto punto) {
+	return puntos[punto].descripcion;
+    }
+
+    /**
+     * Obtiene las rutas que pasan por un punto del almacén.
+     * @param punto Punto cuyas rutas se buscan.
+     */
+    inline Rutas obtenerRutas (Punto punto) {
+	return puntos[punto].rutas;
+    }
+
+
+
+    /**
      * Iteradores para el almacén.
      */
     typedef std::map<Codigo,Ruta>::iterator iterator;
@@ -82,7 +109,19 @@ public:
 };
 
 
+/**
+ * Retira espacios, tabulaciones y saltos de línea de un flujo.
+ * @param input Flujo de entrada.
+ */
 void retirarEspacios (istream& input);
+
+
+/**
+ * Escribe el contenido de una ruta.
+ * @param output Flujo de salida de la ruta.
+ * @param ruta Ruta que se escribirá.
+ */
+std::ostream& operator << (std::ostream& output, const Ruta& ruta);
 
 
 #endif
