@@ -27,7 +27,7 @@ void Almacen::leeRuta (istream& input) {
 	input >> leido;
 
 	actual.push_back(leido);
-	puntos[leido].rutas.push_back(&actual);
+	puntos[leido].rutas.push_back(codigo);
     }
 
     retirarEspacios (input);

@@ -48,10 +48,19 @@ int main(int argc, char * argv[]){
     cout << codigo_pedido << '\t' << almacen.obtenerRuta (codigo_pedido) << endl;
     cout << endl;
 
+
     // Pide al usuario la consulta de un punto.
     Punto punto;
     cout << "Introduzca un punto en formato (latitud,longitud): ";
     cin >> punto;
-    cout << "La descripción del punto " << punto << " es: " << almacen.obtenerDescripcion(punto) << endl;
+
+    Descripcion descripcion = almacen.obtenerDescripcion(punto);
+    Rutas rutas = almacen.obtenerRutas(punto);
+    cout << "La descripción del punto " << punto << " es: " << descripcion << endl;
+    cout << "Las rutas que pasan por el punto son: ";
+
+    for (Rutas::iterator it = rutas.begin(); it != rutas.end(); ++it)
+	cout << *it << ' ';
+
     cout << endl;
 }

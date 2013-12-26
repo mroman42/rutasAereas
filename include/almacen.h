@@ -10,7 +10,7 @@
 typedef std::string Descripcion;
 typedef std::string Codigo;
 typedef std::list<Punto> Ruta;
-typedef std::list<Ruta*> Rutas;
+typedef std::list<Codigo> Rutas;
 
 
 /**
