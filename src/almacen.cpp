@@ -2,6 +2,7 @@
 
 using namespace std;
 
+
 void Almacen::leeRuta (istream& input) {
     /**
      * El formato de una ruta será:
@@ -20,6 +21,8 @@ void Almacen::leeRuta (istream& input) {
 
     // Lee los nuevos puntos y los inserta.
     for (int i=0; i<tamanio; ++i) {
+	retirarEspacios(input);
+
 	Punto leido;
 	input >> leido;
 
@@ -65,7 +68,7 @@ istream& operator >> (istream& input, Almacen& almacen) {
 
     // Rutas
     if (input >> cabecera and cabecera == "#Rutas") {
-	while (input.peek() != '#')
+	while (input.peek() != '#' and input)
 	    almacen.leeRuta(input);
     }
 
@@ -75,5 +78,11 @@ istream& operator >> (istream& input, Almacen& almacen) {
 	    almacen.leeDescripcion(input);
 
     return input;
-	
+}
+
+
+void retirarEspacios (istream& input) {
+    char leido;
+    while (input and (leido = input.peek()) and (leido == '\t' or leido == ' ' or leido == '\n'))
+	input.get();
 }

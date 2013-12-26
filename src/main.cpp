@@ -35,5 +35,7 @@ int main(int argc, char * argv[]){
 
 	for (Ruta::iterator itr = ruta.begin(); itr != ruta.end(); ++itr)
 	    cout << *itr << " ";
+
+	cout << endl;
     }
 }

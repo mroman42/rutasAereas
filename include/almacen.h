@@ -12,6 +12,7 @@ typedef std::string Codigo;
 typedef std::list<Punto> Ruta;
 typedef std::list<Ruta*> Rutas;
 
+
 /**
  * T.D.A. Almacén
  * Contiene todas las rutas sobre un mapa, así como los puntos
@@ -81,6 +82,7 @@ public:
 };
 
 
+void retirarEspacios (istream& input);
 
 
 #endif
