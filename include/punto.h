@@ -54,5 +54,10 @@ public:
     friend std::ostream& operator << (std::ostream& output, const Punto& leido);
 };
 
+/**
+ * Retira espacios, tabulaciones y saltos de línea de un flujo.
+ * @param input Flujo de entrada.
+ */
+void retirarEspacios (istream& input);
 
 #endif

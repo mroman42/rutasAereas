@@ -81,16 +81,6 @@ istream& operator >> (istream& input, Almacen& almacen) {
     return input;
 }
 
-
-void retirarEspacios (istream& input) {
-    // Retira caracteres mientras sean espacios en blanco.
-    char leido;
-
-    while (input and (leido = input.peek()) and (leido == '\t' or leido == ' ' or leido == '\n'))
-    	input.get();
-}
-
-
 ostream& operator << (ostream& output, const Ruta& ruta) {
     /**
      * El formato de una ruta será:

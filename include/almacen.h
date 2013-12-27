@@ -117,14 +117,6 @@ public:
     }
 };
 
-
-/**
- * Retira espacios, tabulaciones y saltos de línea de un flujo.
- * @param input Flujo de entrada.
- */
-void retirarEspacios (istream& input);
-
-
 /**
  * Escribe el contenido de una ruta.
  * @param output Flujo de salida de la ruta.
