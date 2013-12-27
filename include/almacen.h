@@ -25,7 +25,14 @@ private:
      * Un punto contará con una descripción y una lista de rutas asociadas.
      */
     struct InfoPunto {
+	/**
+	 * Descripción del punto.
+	 */
 	Descripcion descripcion;
+
+	/**
+	 * Listado de rutas asociadas a un punto.
+	 */
 	Rutas rutas;
     };
 
@@ -44,12 +51,14 @@ private:
     /**
      * Lee una ruta, incluyendo en el almacén los puntos de la ruta.
      * Incluye la ruta en el almacén.
+     * @param input Flujo de lectura.
      */
     void leeRuta (istream& input);
 
     /**
      * Lee una descripción, añadiéndola al punto.
      * Incluye la ruta en el almacén.
+     * @param input Flujo de lectura.
      */
     void leeDescripcion (istream& input);
     

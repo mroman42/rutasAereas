@@ -83,6 +83,7 @@ istream& operator >> (istream& input, Almacen& almacen) {
 
 
 void retirarEspacios (istream& input) {
+    // Retira caracteres mientras sean espacios en blanco.
     char leido;
     while (input and (leido = input.peek()) and (leido == '\t' or leido == ' ' or leido == '\n'))
 	input.get();
