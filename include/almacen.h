@@ -7,10 +7,12 @@
 #include <map>
 #include "punto.h"
 
-typedef std::string Descripcion;
-typedef std::string Codigo;
-typedef std::list<Punto> Ruta;
-typedef std::list<Codigo> Rutas;
+using namespace std;
+
+typedef string Descripcion;
+typedef string Codigo;
+typedef list<Punto> Ruta;
+typedef list<Codigo> Rutas;
 
 
 /**
@@ -25,21 +27,21 @@ private:
      * Un punto contará con una descripción y una lista de rutas asociadas.
      */
     struct InfoPunto {
-	Descripcion descripcion;
-	Rutas rutas;
+	    Descripcion descripcion;
+    	Rutas rutas;
     };
 
     /**
      * Mapa de puntos del almacén.
      * Cada punto lleva una información asociada.
      */
-    std::map <Punto, InfoPunto> puntos;
+    map <Punto, InfoPunto> puntos;
 
     /**
      * Mapa de rutas del almacén.
      * Cada código tiene una ruta asociada.
      */
-    std::map <Codigo, Ruta> rutas;
+    map <Codigo, Ruta> rutas;
 
     /**
      * Lee una ruta, incluyendo en el almacén los puntos de la ruta.
@@ -59,7 +61,7 @@ public:
      * @param input Flujo de lectura del almacén.
      * @param almacen Almacén donde se leerá.
      */
-    friend std::istream& operator >> (std::istream& input, Almacen& almacen);
+    friend istream& operator >> (istream& input, Almacen& almacen);
 
     /**
      * Obtiene una ruta del almacén mediante su código.
@@ -67,7 +69,7 @@ public:
      * @return Ruta con el código introducido.
      */
     inline Ruta obtenerRuta (Codigo codigo) {
-	return rutas[codigo];
+    	return rutas[codigo];
     }
 
     /**
@@ -75,7 +77,7 @@ public:
      * @param punto Punto cuya descripción se busca.
      */
     inline Descripcion obtenerDescripcion (Punto punto) {
-	return puntos[punto].descripcion;
+    	return puntos[punto].descripcion;
     }
 
     /**
@@ -83,7 +85,7 @@ public:
      * @param punto Punto cuyas rutas se buscan.
      */
     inline Rutas obtenerRutas (Punto punto) {
-	return puntos[punto].rutas;
+    	return puntos[punto].rutas;
     }
 
 
@@ -91,20 +93,20 @@ public:
     /**
      * Iteradores para el almacén.
      */
-    typedef std::map<Codigo,Ruta>::iterator iterator;
+    typedef map<Codigo,Ruta>::iterator iterator;
 
     /**
      * Inicio del almacén.
      */
     inline iterator begin () {
-	return rutas.begin();
+    	return rutas.begin();
     }
 
     /**
      * Final del almacén.
      */
     inline iterator end () {
-	return rutas.end();
+    	return rutas.end();
     }
 };
 
@@ -121,7 +123,7 @@ void retirarEspacios (istream& input);
  * @param output Flujo de salida de la ruta.
  * @param ruta Ruta que se escribirá.
  */
-std::ostream& operator << (std::ostream& output, const Ruta& ruta);
+ostream& operator << (ostream& output, const Ruta& ruta);
 
 
 #endif

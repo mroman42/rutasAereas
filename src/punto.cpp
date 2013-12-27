@@ -13,24 +13,24 @@ istream& operator >> (istream& input, Punto& leido) {
     input >> separador;
 
     if (separador != '(') {
-	input.setstate(ios::failbit);
-	return input;
+	    input.setstate(ios::failbit);
+	    return input;
     }
 
     input >> leido.latitud;
     input >> separador;
 
     if (separador != ',') {
-	input.setstate(ios::failbit);
-	return input;
+	    input.setstate(ios::failbit);
+	    return input;
     }
 
     input >> leido.longitud;
     input >> separador;
 
     if (separador != ')') {
-	input.setstate(ios::failbit);
-	return input;
+	    input.setstate(ios::failbit);
+	    return input;
     }
 
     return input;
@@ -46,3 +46,4 @@ ostream& operator << (ostream& output, const Punto& punto) {
 
     return output;
 }
+

@@ -21,13 +21,13 @@ void Almacen::leeRuta (istream& input) {
 
     // Lee los nuevos puntos y los inserta.
     for (int i=0; i<tamanio; ++i) {
-	retirarEspacios(input);
+	    retirarEspacios(input);
 
-	Punto leido;
-	input >> leido;
+	    Punto leido;
+	    input >> leido;
 
-	actual.push_back(leido);
-	puntos[leido].rutas.push_back(codigo);
+	    actual.push_back(leido);
+	    puntos[leido].rutas.push_back(codigo);
     }
 
     retirarEspacios (input);
@@ -44,8 +44,8 @@ void Almacen::leeDescripcion (istream& input) {
 
     // Lee en cada línea un punto y asigna descripción.
     if (input >> punto_leido) {
-	getline(input, descripcion_leida);
-	puntos[punto_leido].descripcion = descripcion_leida;
+	    getline(input, descripcion_leida);
+	    puntos[punto_leido].descripcion = descripcion_leida;
     }
 }
 
@@ -70,13 +70,13 @@ istream& operator >> (istream& input, Almacen& almacen) {
 
     // Rutas
     if (input >> cabecera and cabecera == "#Rutas")
-	while (input.peek() != '#' and input)
-	    almacen.leeRuta(input);
+	    while (input.peek() != '#' and input)
+	        almacen.leeRuta(input);
 
     // Descripciones
     if (input >> cabecera and cabecera == "#Puntos_de_Interes")
-	while (input.peek() and input)
-	    almacen.leeDescripcion(input);
+	    while (input.peek() and input)
+	        almacen.leeDescripcion(input);
 
     return input;
 }
@@ -84,8 +84,9 @@ istream& operator >> (istream& input, Almacen& almacen) {
 
 void retirarEspacios (istream& input) {
     char leido;
+
     while (input and (leido = input.peek()) and (leido == '\t' or leido == ' ' or leido == '\n'))
-	input.get();
+    	input.get();
 }
 
 
@@ -97,7 +98,7 @@ ostream& operator << (ostream& output, const Ruta& ruta) {
 
     output << ruta.size() << '\t';
     for (Ruta::const_iterator it = ruta.begin(); it != ruta.end(); ++it)
-	output << *it << ' ';
+    	output << *it << ' ';
 
     return output;
 }
