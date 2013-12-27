@@ -7,12 +7,10 @@
 #include <map>
 #include "punto.h"
 
-using namespace std;
-
-typedef string Descripcion;
-typedef string Codigo;
-typedef list<Punto> Ruta;
-typedef list<Codigo> Rutas;
+typedef std::string Descripcion;
+typedef std::string Codigo;
+typedef std::list<Punto> Ruta;
+typedef std::list<Codigo> Rutas;
 
 
 /**
@@ -42,13 +40,13 @@ private:
      * Mapa de puntos del almacén.
      * Cada punto lleva una información asociada.
      */
-    map <Punto, InfoPunto> puntos;
+    std::map <Punto, InfoPunto> puntos;
 
     /**
      * Mapa de rutas del almacén.
      * Cada código tiene una ruta asociada.
      */
-    map <Codigo, Ruta> rutas;
+    std::map <Codigo, Ruta> rutas;
 
     /**
      * Lee una ruta, incluyendo en el almacén los puntos de la ruta.
@@ -70,7 +68,7 @@ public:
      * @param input Flujo de lectura del almacén.
      * @param almacen Almacén donde se leerá.
      */
-    friend istream& operator >> (istream& input, Almacen& almacen);
+    friend std::istream& operator >> (std::istream& input, Almacen& almacen);
 
     /**
      * Obtiene una ruta del almacén mediante su código.
@@ -102,7 +100,7 @@ public:
     /**
      * Iteradores para el almacén.
      */
-    typedef map<Codigo,Ruta>::iterator iterator;
+    typedef std::map<Codigo,Ruta>::iterator iterator;
 
     /**
      * Inicio del almacén.
@@ -132,7 +130,7 @@ void retirarEspacios (istream& input);
  * @param output Flujo de salida de la ruta.
  * @param ruta Ruta que se escribirá.
  */
-ostream& operator << (ostream& output, const Ruta& ruta);
+std::ostream& operator << (std::ostream& output, const Ruta& ruta);
 
 
 #endif

@@ -4,7 +4,8 @@
 #include <string>
 #include <iostream>
 
-using namespace std;
+using std::string;
+using std::istream;
 
 /**
  * T.D.A. Punto
@@ -23,14 +24,6 @@ public:
     Punto (double latit = 0, double longit = 0)
 	: latitud(latit), longitud(longit)
     {}
-
-    /**
-     * Constructor de copia.
-     */
-    Punto (const Punto& otro){
-        latitud = otro.latitud;
-        longitud = otro.longitud;
-    }
 
     /*
      * Devuelve una referencia a la latitud del punto
@@ -57,8 +50,8 @@ public:
 	    return latitud_menor or (latitud_igual and longitud_menor);
     }
 
-    friend istream& operator >> (istream& input, Punto& leido);
-    friend ostream& operator << (ostream& output, const Punto& leido);
+    friend std::istream& operator >> (std::istream& input, Punto& leido);
+    friend std::ostream& operator << (std::ostream& output, const Punto& leido);
 };
 
 
