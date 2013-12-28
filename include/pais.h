@@ -22,11 +22,39 @@ public:
     /**
      * Constructor del pais.
      */
+    Pais(){}
+
+    /**
+     * Constructor del pais.
+     */
     Pais (Punto place, string name, string flag)
 	: ubicacion(place), nombre(name), bandera(flag)
     {}
 
+    /*
+     * Devuelve su posición
+     */
+    inline Punto Localizacion(){
+        return ubicacion;
+    }
+
+    /*
+     * Devuelve su nombre
+     */
+    inline string Nombre(){
+        return nombre;
+    }
+
+    /*
+     * Devuelve su bandera
+     */
+    inline string Bandera(){
+        return bandera;
+    }
+
+
     friend istream& operator >> (istream& input, Pais& leido);
+    friend ostream& operator << (ostream& output, Pais& pais);
 };
 
 

@@ -1,5 +1,5 @@
 #include "almacen.h"
-#include "pais.h"
+#include "paises.h"
 #include <fstream>
 
 using namespace std;
@@ -10,22 +10,27 @@ using namespace std;
 
 int main(int argc, char * argv[]){
     // Lectura de argumentos
-    if (argc != 2) {
-	    cout << "Introduzca como único argumento el fichero de entrada." << endl;
+    if (argc != 3) {
+	    cout << "Introduzca como argumentos los ficheros de entrada.\nPrimero, el almacén, y luego, los países." << endl;
 	    return 0;
     }
 
-    // Apertura del fichero de entrada.
-    ifstream archivo (argv[1]);
-    if (!archivo) {
-	    cout << "No puedo abrir el fichero " << argv[1] << endl;
+    // Apertura de los ficheros de entrada.
+    ifstream archivo_almacen (argv[1]);
+    ifstream archivo_paises (argv[2]);
+    if (!archivo_almacen) {
+	    cout << "No puedo abrir el fichero" << argv[1] << endl;
+	    return 0;
+    }
+    if (!archivo_paises) {
+	    cout << "No puedo abrir el fichero" << argv[2] << endl;
 	    return 0;
     }
 
     // Creamos un almacén donde leemos rutas y puntos de interés.
     // Escribimos el interior del almacén.
     Almacen almacen;
-    archivo >> almacen;
+    archivo_almacen >> almacen;
 
     for (Almacen::iterator it = almacen.begin(); it != almacen.end(); ++it) {
 	    Codigo codigo = it->first;
@@ -62,4 +67,23 @@ int main(int argc, char * argv[]){
 	    cout << *it << ' ';
 
         cout << endl;
+
+
+    // Creamos un conjunto de paises donde leemos los países y su información.
+    // Escribimos el interior del conjunto.
+    Paises conjunto;
+    archivo_paises >> conjunto;
+
+    //Los mostramos todos
+    cout << conjunto; 
+
+
+    // Pide al usuario una consulta de un país.
+    Nombre pedido;
+    cout << "Introduzca el nombre de un país: ";
+    cin >> pedido;
+    cout << "Información del país pedido:\n";
+    cout << conjunto.obtenerPais(pedido);
+
+    return 0;  
 }
