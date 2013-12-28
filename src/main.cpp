@@ -66,7 +66,7 @@ int main(int argc, char * argv[]){
     for (Rutas::iterator it = rutas.begin(); it != rutas.end(); ++it)
 	    cout << *it << ' ';
 
-        cout << endl;
+    cout << endl;
 
 
     // Creamos un conjunto de paises donde leemos los países y su información.
@@ -82,8 +82,11 @@ int main(int argc, char * argv[]){
     Nombre pedido;
     cout << "Introduzca el nombre de un país: ";
     cin >> pedido;
+
+    Pais deseado = conjunto.obtenerPais(pedido);
+
     cout << "Información del país pedido:\n";
-    cout << conjunto.obtenerPais(pedido);
+    cout << deseado;
 
     return 0;  
 }
