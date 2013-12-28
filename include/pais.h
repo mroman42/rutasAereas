@@ -5,7 +5,7 @@
 #include <iostream>
 #include "punto.h"
 
-using namespace std;
+using std::string;
 
 /**
  * T.D.A. Pais
@@ -53,8 +53,8 @@ public:
     }
 
 
-    friend istream& operator >> (istream& input, Pais& leido);
-    friend ostream& operator << (ostream& output, Pais& pais);
+    friend std::istream& operator >> (std::istream& input, Pais& leido);
+    friend std::ostream& operator << (std::ostream& output, Pais& pais);
 };
 
 

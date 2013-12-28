@@ -7,7 +7,10 @@
 #include "pais.h"
 #include <map>
 
+using std::map;
+
 typedef std::string Nombre;
+
 
 /**
  * T.D.A. Paises
@@ -20,7 +23,7 @@ private:
      * Mapa de países.
      * Cada país se localiza por su nombre.
      */
-    std::map <Nombre, Pais> paises;
+    map <Nombre, Pais> paises;
     
 public:
     /**
@@ -56,14 +59,14 @@ public:
      * @param input Flujo de lectura.
      * @param paises Conjunto de países contenidos.
      */
-    friend istream& operator >> (istream& input, Paises& paises);
+    friend std::istream& operator >> (std::istream& input, Paises& paises);
 
     /**
      * Imprime todos los países.
      * @param output Flujo de salida.
      * @param conjunto Conjunto que se imprimirá.
      */
-    friend ostream& operator << (ostream& output, Paises& conjunto);
+    friend std::ostream& operator << (std::ostream& output, Paises& conjunto);
 
 };
 #endif
