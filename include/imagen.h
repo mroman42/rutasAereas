@@ -1,47 +1,55 @@
 #ifndef _IMAGEN_H
 #define _IMAGEN_H
 
+/**
+ * Pixel de una imagen.
+ * Contiene información del color del pixel y transparencia.
+ */
+struct Pixel {
+    /**
+     * Color del pixel.
+     */
+    unsigned char r,g,b;
 
-class Imagen {
+    /**
+     * Transparencia del pixel.
+     */
+    unsigned char transparencia;
+};
+
+
+/**
+ * TDA Imagen.
+ * Matriz de pixeles.
+ */
+class Imagen : public vector < vector<Pixel> > {
 private:
     /**
-     * Pixel de una imagen.
-     * Contiene información del color del pixel y transparencia.
+     * @brief Tipo de imagen
+     *
+     * Declara una serie de constantes para representar los distintos tipos
+     * de imágenes que se pueden manejar.
+     *
+     * @see LeerTipoImagen
      */
-    struct Pixel {
-	/**
-	 * Color del pixel.
-	 */
-	unsigned char r,g,b;
-
-	/**
-	 * Transparencia del pixel.
-	 */
-	unsigned char transparencia;
+    enum TipoImagen {
+	DESCONOCIDA,
+	IMAGEN_PGM,
+	IMAGEN_PPM
     };
 
     /**
-     * Número de filas de la imagen.
+     * @brief Consulta el tipo de imagen del archivo y sus dimensiones
+     *
+     * @param input Flujo de entrada de datos.
+     * @return Devuelve el tipo de la imagen en el archivo
+     *
+     * @see TipoImagen
      */
-    int filas;
-
-    /**
-     * Número de columnas de la imagen.
-     */
-    int columnas;
-
-    
-    /**
-     * @brief Tipo de imagen.
-     * Declara constantes para representar los distintos tipos de imágenes.
-     */
-    enum TipoImagen {
-	DESCONOCIDO, // Tipo desconocido de imagen.
-	IMAGEN_PGM,  // Tipo PGM de imagen.
-	IMAGEN_PPM   // Tipo PPM de imagen.
-    }
+    static TipoImagen leerTipoImagen (istream& input);
 
 public:
+    friend istream& operator >> (istream& input, Imagen& leida);
 };
 
 #endif
