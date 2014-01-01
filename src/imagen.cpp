@@ -33,13 +33,12 @@ void Imagen::rota (double angulo) {
 
     for (int count = 0; count < 4; ++count) {
 	inter = rcorners[count] * coseno + ccorners[count] * seno;
-	
 	if (inter < new_row_min)
 	    new_row_min = inter;
 	if (inter > new_row_max)
 	    new_row_max = inter;
-	inter1 = -rcorners[count] * seno + ccorners[count] * coseno;
 	
+	inter1 = -rcorners[count] * seno + ccorners[count] * coseno;
 	if (inter1 < new_col_min)
 	    new_col_min = inter1;	
 	if (inter1 > new_col_max)
@@ -65,6 +64,7 @@ void Imagen::rota (double angulo) {
 
 	    old_row = ceil((double) old_row);
 	    old_col = ceil((double) old_col);
+	    
 	    if (old_row >= 0 and old_row < numFilas() and old_col >= 0 and old_col < numColumnas())
 		Iout[rows][cols] = at(old_row).at(old_col);
 	    else
@@ -76,9 +76,10 @@ void Imagen::rota (double angulo) {
 }
 
 
+
 /**
- * Funciones de entrada y salida.
- * Se incluyen funciones de lectura y escritura de las imágenes.
+ * Funciones de lectura de las imágenes.
+ * Operador de lectura y funciones auxiliares.
  */
 
 istream& operator >> (istream& input, Imagen& leida) {
@@ -219,10 +220,38 @@ char Imagen::saltarSeparadores (istream& input) {
     // Extrae caracteres hasta que alguno sea distinto a un espacio.
     char leido;
 
-    do
+    do 
 	leido = input.get();
     while (isspace(leido));
     input.putback(leido);
 
     return leido;
+}
+
+
+
+/**
+ * Funciones de escritura de las imágenes.
+ * Operador de escritura y funciones auxiliares.
+ */
+
+ostream& operator << (std::ostream& output, const Imagen& imagen) {
+    // Escribe como imagen PPM.
+    static const int MAXIMO = 225; 
+    int filas = imagen.numFilas();
+    int columnas = imagen.numColumnas();
+
+    if (output) {
+	output << "P6";
+	output << filas << ' ' << columnas;
+	output << MAXIMO;
+	
+	for (int i=0; i<filas; ++i)
+	    for (int j=0; j<columnas; ++j) {
+		const Pixel& actual = imagen[i][j];
+		output << actual.red << actual.green << actual.blue;
+	    }
+    }
+
+    return output;
 }

@@ -147,7 +147,7 @@ public:
      * Número de filas de la imagen.
      * @return Filas de la imagen.
      */
-    inline int numFilas () {
+    inline int numFilas () const {
 	return size();
     }
 
@@ -155,11 +155,12 @@ public:
      * Número de columnas de la imagen.
      * @return Columnas de la imagen.
      */
-    inline int numColumnas () {
+    inline int numColumnas () const {
 	return at(0).size();
     }
 
-
+    
+    friend std::ostream& operator << (std::ostream& output, const Imagen& leida);
     friend std::istream& operator >> (std::istream& input, Imagen& leida);
 };
 
