@@ -14,8 +14,19 @@ using std::string;
  */
 class Pais {
 private:
+    /**
+     * Coordenadas del país sobre el mapa.
+     */
     Punto ubicacion;
+    
+    /**
+     * Nombre del país.
+     */
     string nombre;
+
+    /**
+     * Ruta de la imagen a la bandera del país.
+     */
     string bandera;
 
 public:

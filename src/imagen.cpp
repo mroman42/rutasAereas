@@ -1,5 +1,6 @@
 #include "imagen.h"
 
+
 istream& operator >> (istream& input, Imagen& leida) {
     TipoImagen tipo = leerTipoImagen (input);
     int filas, columnas;
