@@ -1,7 +1,10 @@
 #ifndef _IMAGEN_H
 #define _IMAGEN_H
 
+#include <vector>
 #include <iostream>
+#include <cstdlib>
+#include <cmath>
 #include <limits>
 
 /**
@@ -23,11 +26,12 @@ struct Pixel {
 };
 
 
+
 /**
  * TDA Imagen.
  * Matriz de pixeles.
  */
-class Imagen : public vector < vector<Pixel> > {
+class Imagen : public std::vector< std::vector<Pixel> > {
 private:
     /**
      * @brief Tipo de imagen
@@ -66,7 +70,7 @@ private:
      *
      * @see TipoImagen
      */
-    static TipoImagen leerTipoImagen (istream& input);
+    static TipoImagen leerTipoImagen (std::istream& input);
 
 
     /**
@@ -76,7 +80,7 @@ private:
      * @param columnas Número de columnas de la imagen según la cabecera.
      * @return Verdadero si la lectura tuvo éxito.
      */
-    static bool LeerCabecera (istream& input, int& filas, int& columnas)
+    static bool LeerCabecera (std::istream& input, int& filas, int& columnas);
 
     /**
      * @brief Lee una imagen de tipo PPM reservando la memoria necesaria.
@@ -89,7 +93,7 @@ private:
      * como tripletas consecutivas en formato RGB (RGBRGBRGB...) por filas
      * desde la esquina superior izquierda a la inferior derecha.
      */
-    static Buffer leerImagenPPM (istream& input, int& filas, int& columnas);
+    static Buffer leerImagenPPM (std::istream& input, int& filas, int& columnas);
     
     /**
      * @brief Lee una imagen de tipo PGM reservando la memoria necesaria.
@@ -101,7 +105,7 @@ private:
      * El buffer será una zona de memoria para obtener el valor de cada uno de los píxeles
      * como un valor de grises por filas desde la esquina superior izquierda a la inferior derecha.
      */
-    static Buffer leerImagenPGM (istream& input, int& filas, int& columnas);
+    static Buffer leerImagenPGM (std::istream& input, int& filas, int& columnas);
 
 
     /**
@@ -109,7 +113,7 @@ private:
      * Retirará las líneas que comiencen por # hasta encontrar una que no lo haga.
      * @param input Flujo de entrada.
      */
-    static void saltarComentarios (istream& input)
+    static void saltarComentarios (std::istream& input);
 
     /**
      * Salta los separadores del flujo de entrada.
@@ -117,11 +121,35 @@ private:
      * @param input Flujo de entrada de los caracteres.
      * @return Caracter no separador.
      */
-    static char saltarSeparadores (istream& input);
+    static char saltarSeparadores (std::istream& input);
     
 
 public:
-    friend istream& operator >> (istream& input, Imagen& leida);
+    /** 
+     * @brief Obtiene una nueva imagen que es la versión rotada de la imagen.
+     * @param angulo Ángulo a rotar la imagen de entrada. Debe estar en radianes.
+     * @return Una nueva imagen que es la versión rotada de la original.
+     * @pos La imagen queda rotada según el ángulo indicado.
+     **/
+    void Rota (double angulo);
+
+    /**
+     * Número de filas de la imagen.
+     * @return Filas de la imagen.
+     */
+    inline int numFilas () {
+	return size();
+    }
+
+    /**
+     * Número de columnas de la imagen.
+     * @return Columnas de la imagen.
+     */
+    inline int numColumnas () {
+	return operator[0].size();
+    }
+
+    friend std::istream& operator >> (std::istream& input, Imagen& leida);
 };
 
 #endif
