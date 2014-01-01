@@ -6,7 +6,7 @@ using namespace std;
 istream& operator >> (istream& input, Pais& leido) {
     /**
      * El formato de un punto será:
-     *    <latitud> <longitud> <nombre> <bandera> 
+     *    <latitud> <longitud> <nombre> <bandera>
      */
     input >> leido.ubicacion.Latitud();
     input >> leido.ubicacion.Longitud();
@@ -16,7 +16,7 @@ istream& operator >> (istream& input, Pais& leido) {
     return input;
 }
 
-ostream& operator << (ostream& output, Pais& pais) {
+ostream& operator << (ostream& output, const Pais& pais) {
     /*
      * El formato será:
      *    <nombre>: Está en <punto> y su bandera está en <bandera> 

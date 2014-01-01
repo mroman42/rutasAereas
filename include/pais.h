@@ -65,7 +65,7 @@ public:
 
 
     friend std::istream& operator >> (std::istream& input, Pais& leido);
-    friend std::ostream& operator << (std::ostream& output, Pais& pais);
+    friend std::ostream& operator << (std::ostream& output, const Pais& pais);
 };
 
 
