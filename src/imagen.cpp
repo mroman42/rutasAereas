@@ -4,8 +4,10 @@ using namespace std;
 
 
 void Imagen::rota (double angulo) {
-    double coseno = cos(angulo);
-    double seno = sin(angulo);
+    // Transforma a radianes y calcula seno y coseno.
+    double radianes = angulo * M_PI / 180.0;
+    double coseno = cos(radianes);
+    double seno = sin(radianes);
 
     //Para obtener las dimensiones de la imagen
     int rcorners[4], ccorners[4];
@@ -55,10 +57,10 @@ void Imagen::rota (double angulo) {
     
     for (int rows = 0; rows<newimgrows; ++rows) {
 	for (int cols = 0; cols<newimgcols; ++cols) {
-	    float oldrowcos = ((float) rows + new_row_min) * cos(-angulo);
-	    float oldrowsin = ((float) rows + new_row_min) * sin(-angulo);
-	    float oldcolcos = ((float) cols + new_col_min) * cos(-angulo);
-	    float oldcolsin = ((float) cols + new_col_min) * sin(-angulo);
+	    float oldrowcos = ((float) rows + new_row_min) * coseno;
+	    float oldrowsin = ((float) rows + new_row_min) * -seno;
+	    float oldcolcos = ((float) cols + new_col_min) * coseno;
+	    float oldcolsin = ((float) cols + new_col_min) * -seno;
 	    float old_row =  oldrowcos + oldcolsin;
 	    float old_col = -oldrowsin + oldcolcos;
 

@@ -130,7 +130,7 @@ public:
      * @param filas Filas de la imagen.
      * @param columnas Columnas de la imagen.
      */
-    Imagen (int filas, int columnas) 
+    Imagen (int filas = 0, int columnas = 0) 
 	: std::vector < std::vector<Pixel> >(filas, std::vector<Pixel>(columnas))
     {}
 
