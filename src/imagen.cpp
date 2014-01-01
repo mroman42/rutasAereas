@@ -244,9 +244,9 @@ ostream& operator << (std::ostream& output, const Imagen& imagen) {
     int columnas = imagen.numColumnas();
 
     if (output) {
-	output << "P6";
-	output << filas << ' ' << columnas;
-	output << MAXIMO;
+	output << "P6" << endl;
+	output << filas << ' ' << columnas << endl;
+	output << MAXIMO << endl;
 	
 	for (int i=0; i<filas; ++i)
 	    for (int j=0; j<columnas; ++j) {

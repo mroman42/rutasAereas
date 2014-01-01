@@ -13,6 +13,7 @@ using namespace std;
  * una nueva imagen que es una versión rotada de la imagen original.
  */
 int main(int argc, char* argv []) {
+    // Mensajes del programa.
     string MSG_ERROR = "Error. Uso incorrecto del programa.";
     string MSG_USO = "El programa recibe cuatro argumentos. \n rota \t<imagen>\t<angulo>\t<imagen_salida>\n";
 
@@ -28,7 +29,6 @@ int main(int argc, char* argv []) {
     string archivo_salida = argv[3];
     float grados_rotacion = strtod(argv[2], NULL);
     
-
     
     // Lee la imagen del archivo inicial.
     Imagen imagen_leida;
