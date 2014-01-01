@@ -1,7 +1,50 @@
 #include "imagen.h"
 
 istream& operator >> (istream& input, Imagen& leida) {
+    TipoImagen tipo = leerTipoImagen (input);
+    int filas, columnas;
+    Buffer buffer;
+
+    // Intenta lectura según el tipo leído.
+    switch (tipo) {
+    case IMAGEN_PPM: buffer = leerImagenPPM(input, filas, columnas); break;
+    case IMAGEN_PGM: buffer = leerImagenPGM(input, filas, columnas); break;
+    case default: input.setstate (ios::failbit); return input;
+    }
     
+    // Lleva el buffer a la matriz de la imagen.
+    // Controla el tamaño del buffer según filas y columnas.
+    leida = Imagen(filas, vector<Imagen::Pixel>(columnas));
+  
+    if (tipo == IMAGEN_PPM) {
+	int posicion_buffer = 0;
+	
+	for (int i=0; i<filas; ++i) {
+	    for (int j=0; j<columnas; ++j) {
+		Pixel actual = leida[i][j];
+		actual.red   = buffer[posicion_buffer++];
+		actual.green = buffer[posicion_buffer++];
+		actual.blue  = buffer[posicion_buffer++];
+		actual.transparencia = 0;
+	    }
+	}
+    }
+    
+    if (tipo == IMAGEN_PGM) {
+	int posicion_buffer = 0;
+	
+	for (int i=0; i<filas; ++i) {
+	    for (int j=0; j<columnas; ++j) {
+		Pixel actual = leida[i][j];
+		actual.red   = buffer[posicion_buffer];
+		actual.green = buffer[posicion_buffer];
+		actual.blue  = buffer[posicion_buffer];
+		actual.transparencia = 0;
+		++posicion_buffer;
+	    }
+	}	
+    }
+
     return input;
 }
 

@@ -12,7 +12,9 @@ struct Pixel {
     /**
      * Color del pixel.
      */
-    unsigned char r,g,b;
+    unsigned char red;
+    unsigned char green;
+    unsigned char blue;
 
     /**
      * Transparencia del pixel.
