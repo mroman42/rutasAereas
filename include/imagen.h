@@ -125,13 +125,23 @@ private:
     
 
 public:
-    /** 
+    /**
+     * Constructor de una imagen dadas unas dimensiones.
+     * @param filas Filas de la imagen.
+     * @param columnas Columnas de la imagen.
+     */
+    Imagen (int filas, int columnas) 
+	: std::vector < std::vector<Pixel> >(filas, std::vector<Pixel>(columnas))
+    {}
+
+
+    /**
      * @brief Obtiene una nueva imagen que es la versión rotada de la imagen.
      * @param angulo Ángulo a rotar la imagen de entrada. Debe estar en radianes.
      * @return Una nueva imagen que es la versión rotada de la original.
      * @pos La imagen queda rotada según el ángulo indicado.
      **/
-    void Rota (double angulo);
+    void rota (double angulo);
 
     /**
      * Número de filas de la imagen.
@@ -146,8 +156,9 @@ public:
      * @return Columnas de la imagen.
      */
     inline int numColumnas () {
-	return operator[0].size();
+	return at(0).size();
     }
+
 
     friend std::istream& operator >> (std::istream& input, Imagen& leida);
 };

@@ -1,7 +1,9 @@
 #include "imagen.h"
 
+using namespace std;
 
-void Rota (double angulo) {
+
+void Imagen::rota (double angulo) {
     double coseno = cos(angulo);
     double seno = sin(angulo);
 
@@ -16,10 +18,10 @@ void Rota (double angulo) {
     ccorners[0] = 0;
     ccorners[2] = 0;
 
-    rcorners[2] = num_filas() -1;
-    rcorners[3] = num_filas() -1;
-    ccorners[1] = num_cols() -1;
-    ccorners[3] = num_cols() -1;
+    rcorners[2] = numFilas() - 1;
+    rcorners[3] = numFilas() - 1;
+    ccorners[1] = numColumnas() - 1;
+    ccorners[3] = numColumnas() - 1;
 
     new_row_min = 0;
     new_col_min = 0;
@@ -31,13 +33,13 @@ void Rota (double angulo) {
 
     for (int count = 0; count < 4; ++count) {
 	inter = rcorners[count] * coseno + ccorners[count] * seno;
-	   
+	
 	if (inter < new_row_min)
 	    new_row_min = inter;
 	if (inter > new_row_max)
 	    new_row_max = inter;
 	inter1 = -rcorners[count] * seno + ccorners[count] * coseno;
-	   
+	
 	if (inter1 < new_col_min)
 	    new_col_min = inter1;	
 	if (inter1 > new_col_max)
@@ -54,17 +56,17 @@ void Rota (double angulo) {
     
     for (int rows = 0; rows<newimgrows; ++rows) {
 	for (int cols = 0; cols<newimgcols; ++cols) {
-	    float oldrowcos = ((float)rows + new_row_min) * cos(-rads);
-	    float oldrowsin = ((float)rows + new_row_min) * sin(-rads);
-	    float oldcolcos = ((float)cols + new_col_min) * cos(-rads);
-	    float oldcolsin = ((float)cols + new_col_min) * sin(-rads);
+	    float oldrowcos = ((float) rows + new_row_min) * cos(-angulo);
+	    float oldrowsin = ((float) rows + new_row_min) * sin(-angulo);
+	    float oldcolcos = ((float) cols + new_col_min) * cos(-angulo);
+	    float oldcolsin = ((float) cols + new_col_min) * sin(-angulo);
 	    float old_row =  oldrowcos + oldcolsin;
 	    float old_col = -oldrowsin + oldcolcos;
 
 	    old_row = ceil((double) old_row);
 	    old_col = ceil((double) old_col);
-	    if (old_row >= 0 and old_row < num_filas() and old_col >= 0 and old_col < num_cols())
-		Iout[rows][cols] = operator[old_row][old_col];
+	    if (old_row >= 0 and old_row < numFilas() and old_col >= 0 and old_col < numColumnas())
+		Iout[rows][cols] = at(old_row).at(old_col);
 	    else
 		Iout[rows][cols].red = Iout[rows][cols].green = Iout[rows][cols].blue = 255;
 	}
@@ -80,27 +82,27 @@ void Rota (double angulo) {
  */
 
 istream& operator >> (istream& input, Imagen& leida) {
-    TipoImagen tipo = leerTipoImagen (input);
+    Imagen::TipoImagen tipo = Imagen::leerTipoImagen(input);
+    Imagen::Buffer buffer;
     int filas, columnas;
-    Buffer buffer;
 
     // Intenta lectura según el tipo leído.
     switch (tipo) {
-    case IMAGEN_PPM: buffer = leerImagenPPM(input, filas, columnas); break;
-    case IMAGEN_PGM: buffer = leerImagenPGM(input, filas, columnas); break;
-    case default: input.setstate (ios::failbit); return input;
+    case Imagen::IMAGEN_PPM: buffer = Imagen::leerImagenPPM(input, filas, columnas); break;
+    case Imagen::IMAGEN_PGM: buffer = Imagen::leerImagenPGM(input, filas, columnas); break;
+    default: input.setstate (ios::failbit); return input;
     }
     
     // Lleva el buffer a la matriz de la imagen.
     // Controla el tamaño del buffer según filas y columnas.
-    leida = Imagen(filas, vector<Imagen::Pixel>(columnas));
+    leida = Imagen(filas, columnas);
   
-    if (tipo == IMAGEN_PPM) {
+    if (tipo == Imagen::IMAGEN_PPM) {
 	int posicion_buffer = 0;
 	
 	for (int i=0; i<filas; ++i) {
 	    for (int j=0; j<columnas; ++j) {
-		Pixel actual = leida[i][j];
+		Pixel& actual = leida[i][j];
 		actual.red   = buffer[posicion_buffer++];
 		actual.green = buffer[posicion_buffer++];
 		actual.blue  = buffer[posicion_buffer++];
@@ -109,12 +111,12 @@ istream& operator >> (istream& input, Imagen& leida) {
 	}
     }
     
-    if (tipo == IMAGEN_PGM) {
+    if (tipo == Imagen::IMAGEN_PGM) {
 	int posicion_buffer = 0;
 	
 	for (int i=0; i<filas; ++i) {
 	    for (int j=0; j<columnas; ++j) {
-		Pixel actual = leida[i][j];
+		Pixel& actual = leida[i][j];
 		actual.red   = buffer[posicion_buffer];
 		actual.green = buffer[posicion_buffer];
 		actual.blue  = buffer[posicion_buffer];
@@ -128,7 +130,7 @@ istream& operator >> (istream& input, Imagen& leida) {
 }
 
 
-TipoImagen Imagen::leerTipoImagen (istream& input) {
+Imagen::TipoImagen Imagen::leerTipoImagen (istream& input) {
     /**
      * El tipo de imagen viene dado por los dos primeros caracteres.
      * El primer caracter debe ser una P y el segundo debe ser un número.
@@ -136,7 +138,7 @@ TipoImagen Imagen::leerTipoImagen (istream& input) {
      *  - En caso de que sea 6, será imagen PPM.
      * Por defecto, se considera el tipo desconocido de imagen.
      */
-    TipoImagen tipo = IMG_DESCONOCIDO;
+    TipoImagen tipo = DESCONOCIDA;
     char c1, c2;
   
     if (input) {
@@ -145,24 +147,24 @@ TipoImagen Imagen::leerTipoImagen (istream& input) {
 
 	if (input and c1 == 'P')
 	    switch (c2) {
-	    case '5': res = IMG_PGM; break;
-	    case '6': res = IMG_PPM; break;
+	    case '5': tipo = IMAGEN_PGM; break;
+	    case '6': tipo = IMAGEN_PPM; break;
 	    }
     }
 
-    return res;
+    return tipo;
 
 }
 
 
-Buffer Imagen::leerImagenPPM (istream& input, int& filas, int& columnas) {
+Imagen::Buffer Imagen::leerImagenPPM (istream& input, int& filas, int& columnas) {
     // Si puede leer la cabecera correctamente,
     // reserva espacio para el buffer y lo vuelca directamente.
     if (LeerCabecera (input, filas, columnas)) {
 	int tamanio_buffer = filas * columnas * 3;
-	Buffer buffer = new char [tamanio_buffer]; 
+	Buffer buffer = new unsigned char[tamanio_buffer]; 
     
-	if (input.read(buffer, tamanio_buffer))
+	if (input.read((char*) buffer, tamanio_buffer))
 	    return buffer;
     }
 
@@ -172,14 +174,14 @@ Buffer Imagen::leerImagenPPM (istream& input, int& filas, int& columnas) {
     return NULL;
 }
 
-Buffer Imagen::leerImagenPGM (istream& input, int& filas, int& columnas) {
+Imagen::Buffer Imagen::leerImagenPGM (istream& input, int& filas, int& columnas) {
     // Si puede leer la cabecera correctamente,
     // reserva espacio para el buffer y lo vuelca directamente.
     if (LeerCabecera (input, filas, columnas)) {
 	int tamanio_buffer = filas * columnas;
-	Buffer buffer = new char [tamanio_buffer]; 
+	Buffer buffer = new unsigned char [tamanio_buffer]; 
     
-	if (input.read(buffer, tamanio_buffer))
+	if (input.read((char*) buffer, tamanio_buffer))
 	    return buffer;
     }
   
@@ -197,7 +199,7 @@ bool Imagen::LeerCabecera (istream& input, int& filas, int& columnas) {
     input >> columnas >> filas >> maxvalor;
     
     if (input and filas > 0 and filas < 5000 and columnas > 0 and columnas < 5000) {
-        f.get();
+        input.get();
         return true;
     }
     
@@ -209,7 +211,7 @@ void Imagen::saltarComentarios (istream& input) {
     // Salta todas las líneas que comiencen con #.
     static const int SALTO_MAXIMO = numeric_limits<streamsize>::max();
     while (saltarSeparadores(input) == '#')
-	input.ignore (TAMANIO_SALTO, '\n');
+	input.ignore (SALTO_MAXIMO, '\n');
 }
 
 
