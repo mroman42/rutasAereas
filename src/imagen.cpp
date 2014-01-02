@@ -3,6 +3,10 @@
 using namespace std;
 
 
+void Imagen::pega (const Imagen& imagen, const Imagen& mascara, bool opaco, int offset_horizontal, int offset_vertical) {
+    
+}
+
 void Imagen::rota (double angulo) {
     // Transforma a radianes y calcula seno y coseno.
     double radianes = angulo * M_PI / 180.0;
@@ -40,37 +44,39 @@ void Imagen::rota (double angulo) {
 	if (inter > new_row_max)
 	    new_row_max = inter;
 	
-	inter1 = -rcorners[count] * seno + ccorners[count] * coseno;
+	inter1 = - rcorners[count] * seno + ccorners[count] * coseno;
 	if (inter1 < new_col_min)
 	    new_col_min = inter1;	
 	if (inter1 > new_col_max)
 	    new_col_max = inter1;
     }
     
-    newimgrows = (unsigned) ceil((double) new_row_max-new_row_min);
-    newimgcols = (unsigned) ceil((double) new_col_max-new_col_min);
-   
-
+    newimgrows = (unsigned) ceil((double) new_row_max - new_row_min);
+    newimgcols = (unsigned) ceil((double) new_col_max - new_col_min);
+    
+    
     // Rota cada pixel de la imagen.
     // Copiará la imagen rotada en la imagen implícita.
-    Imagen Iout(newimgrows,newimgcols);
+    Imagen Iout(newimgrows, newimgcols);
     
     for (int rows = 0; rows<newimgrows; ++rows) {
 	for (int cols = 0; cols<newimgcols; ++cols) {
+	    // Busca el pixel que, rotado, da como imagen el pixel actual.
 	    float oldrowcos = ((float) rows + new_row_min) * coseno;
-	    float oldrowsin = ((float) rows + new_row_min) * -seno;
+	    float oldrowsin = ((float) rows + new_row_min) * seno;
 	    float oldcolcos = ((float) cols + new_col_min) * coseno;
-	    float oldcolsin = ((float) cols + new_col_min) * -seno;
-	    float old_row =  oldrowcos + oldcolsin;
-	    float old_col = -oldrowsin + oldcolcos;
-
+	    float oldcolsin = ((float) cols + new_col_min) * seno;
+	    float old_row = oldrowcos - oldcolsin;
+	    float old_col = oldrowsin + oldcolcos;
+	    
 	    old_row = ceil((double) old_row);
 	    old_col = ceil((double) old_col);
 	    
+	    // Si existía en la imagen original, lo copia en la nueva imagen.
 	    if (old_row >= 0 and old_row < numFilas() and old_col >= 0 and old_col < numColumnas())
-		Iout[rows][cols] = at(old_row).at(old_col);
+	    	Iout[rows][cols] = at(old_row).at(old_col);
 	    else
-		Iout[rows][cols].red = Iout[rows][cols].green = Iout[rows][cols].blue = 255;
+	    	Iout[rows][cols].red = Iout[rows][cols].green = Iout[rows][cols].blue = 255;
 	}
     }
 
