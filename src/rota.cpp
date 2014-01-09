@@ -14,7 +14,7 @@ using namespace std;
  */
 int main(int argc, char* argv []) {
     // Mensajes del programa.
-    string MSG_ERROR = "Error. Uso incorrecto del programa.";
+    string MSG_ERROR = "Error. Uso incorrecto del programa. ";
     string MSG_USO = "El programa recibe cuatro argumentos. \n rota \t<imagen>\t<angulo>\t<imagen_salida>\n";
 
     // Comprueba el uso correcto del programa.
