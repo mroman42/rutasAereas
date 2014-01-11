@@ -43,13 +43,36 @@ int main (int argc, char* argv []) {
     string archivo_imagen = argv[2];
     string archivo_mascara = argv[3];
     string archivo_salida = argv[4];
-
+    int desplazamiento_filas = atoi(argv[5]);
+    int desplazamiento_columnas = atoi(argv[6]);
+    bool transparente = argv[7];
 
     // Obtiene las imágenes de los ficheros indicados.
     Imagen fondo;
-    Imagen pegado;
+    Imagen imagen;
     Imagen mascara;
 
-    fstream input_fondo (archivo_fondo);    
-    entrada >> fondo;
+    fstream input;
+
+    input.open (archivo_fondo);
+    input >> fondo;
+    input.close ();
+
+    input.open (archivo_imagen);
+    input >> imagen;
+    input.close ();
+
+    input.open (archivo_mascara);
+    input >> mascara;
+    input.close ();
+
+
+    // Realiza el pegado de la imagen.
+    fondo.pega (imagen, mascara, transparente, desplazamiento_filas, desplazamiento_columnas);
+
+
+    // Escribe la imagen resultante.
+    fstream salida (archivo_salida, fstream::out);
+    salida << fondo;
+    salida.close();
 }

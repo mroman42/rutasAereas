@@ -85,6 +85,7 @@ void Imagen::rota (double angulo) {
     // Rota cada pixel de la imagen.
     // Copiará la imagen rotada en la imagen implícita.
     Imagen Iout(newimgrows, newimgcols);
+    Iout.tipo = tipo;
     
     for (int rows = 0; rows<newimgrows; ++rows) {
 	for (int cols = 0; cols<newimgcols; ++cols) {
@@ -102,8 +103,10 @@ void Imagen::rota (double angulo) {
 	    // Si existía en la imagen original, lo copia en la nueva imagen.
 	    if (old_row >= 0 and old_row < numFilas() and old_col >= 0 and old_col < numColumnas())
 	    	Iout[rows][cols] = at(old_row).at(old_col);
-	    else
+	    else {
 	    	Iout[rows][cols].red = Iout[rows][cols].green = Iout[rows][cols].blue = 255;
+		Iout[rows][cols].transparencia = 0;
+	    }
 	}
     }
 
@@ -132,10 +135,11 @@ istream& operator >> (istream& input, Imagen& leida) {
     // Lleva el buffer a la matriz de la imagen.
     // Controla el tamaño del buffer según filas y columnas.
     leida = Imagen(filas, columnas);
-  
+    leida.tipo = tipo;
+    
     if (tipo == Imagen::IMAGEN_PPM) {
 	int posicion_buffer = 0;
-	
+
 	for (int i=0; i<filas; ++i) {
 	    for (int j=0; j<columnas; ++j) {
 		Pixel& actual = leida[i][j];
@@ -181,11 +185,12 @@ Imagen::TipoImagen Imagen::leerTipoImagen (istream& input) {
 	c1 = input.get();
 	c2 = input.get();
 
-	if (input and c1 == 'P')
-	    switch (c2) {
+	if (input and c1 == 'P') {
+	    switch (c2) { 
 	    case '5': tipo = IMAGEN_PGM; break;
 	    case '6': tipo = IMAGEN_PPM; break;
 	    }
+	}
     }
 
     return tipo;
@@ -271,21 +276,43 @@ char Imagen::saltarSeparadores (istream& input) {
  */
 
 ostream& operator << (std::ostream& output, const Imagen& imagen) {
-    // Escribe como imagen PPM.
     static const int MAXIMO = 225; 
     int filas = imagen.numFilas();
     int columnas = imagen.numColumnas();
 
-    if (output) {
-	output << "P6" << endl;
-	output << filas << ' ' << columnas << endl;
-	output << MAXIMO << endl;
+    // Escribe como imagen PPM.
+    if (imagen.tipo == Imagen::IMAGEN_PPM) {
+	if (output) {
+	    output << "P6" << endl;
+	    output << filas << ' ' << columnas << endl;
+	    output << MAXIMO << endl;
 	
-	for (int i=0; i<filas; ++i)
-	    for (int j=0; j<columnas; ++j) {
-		const Pixel& actual = imagen[i][j];
-		output << actual.red << actual.green << actual.blue;
-	    }
+	    for (int i=0; i<filas; ++i)
+		for (int j=0; j<columnas; ++j) {
+		    const Pixel& actual = imagen[i][j];
+		    output << actual.red << actual.green << actual.blue;
+		}
+	}
+    }
+
+    // Escribe como imagen PGM.
+    else if (imagen.tipo == Imagen::IMAGEN_PGM) {
+	if (output) {
+	    output << "P5" << endl;
+	    output << filas << ' ' << columnas << endl;
+	    output << MAXIMO << endl;
+
+	    for (int i=0; i<filas; ++i)
+		for (int j=0; j<columnas; ++j) {
+		    const Pixel& actual = imagen[i][j];
+		    output << actual.transparencia;
+		}
+	}
+    }
+
+    // Escribe un error si se desconoce el tipo de la imagen.
+    else {
+	output << "ERROR: Tipo desconocido.\n";
     }
 
     return output;

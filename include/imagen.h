@@ -49,6 +49,11 @@ private:
 
 
     /**
+     * Tipo de la imagen actual.
+     */
+    TipoImagen tipo;
+
+    /**
      * Buffer con información en bruto de la imagen.
      * Información no interpretada de la imagen.
      */
