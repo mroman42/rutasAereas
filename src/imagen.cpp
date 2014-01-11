@@ -3,7 +3,34 @@
 using namespace std;
 
 
-void Imagen::pega (const Imagen& imagen, const Imagen& mascara, bool opaco, int offset_horizontal, int offset_vertical) {
+void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool transparente, const int offset_horizontal, const int offset_vertical) {
+    // Comprueba que la imagen y la máscara tengan las mismas dimensiones.
+    int filas = imagen.numFilas();
+    int columnas = imagen.numColumnas();
+    if (filas != mascara.numFilas() or columnas != mascara.numColumnas())
+	return;
+
+    // Copia los pixeles de la imagen dada en la imagen actual.
+    if (transparente) {
+	for (int i=0; i<filas; ++i)
+	    for (int j=0; j<columnas; ++j)
+		if (mascara[i][j].transparencia == 255)
+		    at(i + offset_vertical).at(j + offset_horizontal) = imagen[i][j];
+    }
+    else {
+	for (int i=0; i<filas; ++i) {
+	    for (int j=0; j<columnas; ++j) {
+		if (mascara[i][j].transparencia == 255) {
+		    Pixel& actual = at(i+offset_vertical).at(j+offset_horizontal);
+		    Pixel nuevo = imagen[i][j];
+
+		    actual.red = actual.red / 2 + nuevo.red / 2;
+		    actual.blue = actual.blue / 2 + nuevo.blue / 2;
+		    actual.green = actual.green / 2 + nuevo.green / 2;
+		}
+	    }
+	}	    
+    }
     
 }
 

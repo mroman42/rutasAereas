@@ -13,7 +13,7 @@ using namespace std;
  */
 int main (int argc, char* argv []) {
     // Mensajes del programa.
-    typedef static const string Mensaje;
+    typedef const string Mensaje;
     Mensaje MSG_ERROR = "Error. Uso incorrecto del programa.\n";
     Mensaje MSG_USO   = "El programa recibe 7 parámetros:\n";
     Mensaje MSG_PAR1  = "1. Imagen de fondo.\n";
@@ -38,7 +38,18 @@ int main (int argc, char* argv []) {
 	return -1;
     }
 
+    // Lee los argumentos.
+    string archivo_fondo = argv[1];
+    string archivo_imagen = argv[2];
+    string archivo_mascara = argv[3];
+    string archivo_salida = argv[4];
 
-    // Obtiene las imágenes de los ficheros indicados. 
-    
+
+    // Obtiene las imágenes de los ficheros indicados.
+    Imagen fondo;
+    Imagen pegado;
+    Imagen mascara;
+
+    fstream input_fondo (archivo_fondo);    
+    entrada >> fondo;
 }

@@ -147,11 +147,12 @@ public:
      * @brief Pega una nueva imagen sobre la imagen, que toma como fondo.
      * @param imagen Imagen que se pegará.
      * @param mascara Máscara de pegado de la imagen.
-     * @param opaco Verdadero si no se usará transparencia en el pegado.
+     * @param transparente Verdadero si se usará transparencia en el pegado.
      * @param offset_horizontal Desplazamiento horizontal del origen del pegado.
      * @param offset_vertical Desplazamiento vertical del origen del pegado.
+     * @param opaco Verdadero si el pegado debe ser opaco.
      */
-    void pega (const Imagen& imagen, const Imagen& mascara, bool opaco, int offset_horizontal, int offset_vertical);
+    void pega (const Imagen& imagen, const Imagen& mascara, const bool transparente, const int offset_horizontal, const int offset_vertical);
 
     /**
      * Número de filas de la imagen.
