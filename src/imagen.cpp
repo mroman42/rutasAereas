@@ -11,17 +11,17 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
 	return;
 
     // Copia los pixeles de la imagen dada en la imagen actual.
-    if (transparente) {
+    if (!transparente) {
 	for (int i=0; i<filas; ++i)
 	    for (int j=0; j<columnas; ++j)
 		if (mascara[i][j].transparencia == 255)
-		    at(i + offset_vertical).at(j + offset_horizontal) = imagen[i][j];
+		    at(i + offset_horizontal).at(j + offset_vertical) = imagen[i][j];
     }
     else {
 	for (int i=0; i<filas; ++i) {
 	    for (int j=0; j<columnas; ++j) {
 		if (mascara[i][j].transparencia == 255) {
-		    Pixel& actual = at(i+offset_vertical).at(j+offset_horizontal);
+		    Pixel& actual = at(i+offset_horizontal).at(j+offset_vertical);
 		    Pixel nuevo = imagen[i][j];
 
 		    actual.red = actual.red / 2 + nuevo.red / 2;
@@ -47,13 +47,12 @@ void Imagen::rota (double angulo) {
     double inter, inter1;
 
     rcorners[0] = 0;
-    rcorners[1] = 0;
     ccorners[0] = 0;
+    rcorners[1] = 0;
+    ccorners[1] = numColumnas() - 1;
     ccorners[2] = 0;
-
     rcorners[2] = numFilas() - 1;
     rcorners[3] = numFilas() - 1;
-    ccorners[1] = numColumnas() - 1;
     ccorners[3] = numColumnas() - 1;
 
     new_row_min = 0;
@@ -71,7 +70,7 @@ void Imagen::rota (double angulo) {
 	if (inter > new_row_max)
 	    new_row_max = inter;
 	
-	inter1 = - rcorners[count] * seno + ccorners[count] * coseno;
+	inter1 = -rcorners[count] * seno + ccorners[count] * coseno;
 	if (inter1 < new_col_min)
 	    new_col_min = inter1;	
 	if (inter1 > new_col_max)
@@ -235,11 +234,12 @@ Imagen::Buffer Imagen::leerImagenPGM (istream& input, int& filas, int& columnas)
 
 
 bool Imagen::LeerCabecera (istream& input, int& filas, int& columnas) {
+    static int MAXIMO_TAMANIO_IMAGEN = 5000;
     int maxvalor;
     saltarComentarios(input);
-    input >> columnas >> filas >> maxvalor;
+    input >> filas >> columnas >> maxvalor;
     
-    if (input and filas > 0 and filas < 5000 and columnas > 0 and columnas < 5000) {
+    if (input and filas > 0 and filas < MAXIMO_TAMANIO_IMAGEN and columnas > 0 and columnas < MAXIMO_TAMANIO_IMAGEN) {
         input.get();
         return true;
     }
@@ -304,7 +304,7 @@ ostream& operator << (std::ostream& output, const Imagen& imagen) {
 
 	    for (int i=0; i<filas; ++i)
 		for (int j=0; j<columnas; ++j) {
-		    const Pixel& actual = imagen[i][j];
+		    const Pixel& actual = imagen.at(i).at(j);
 		    output << actual.transparencia;
 		}
 	}
