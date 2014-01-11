@@ -157,7 +157,7 @@ public:
      * @param offset_vertical Desplazamiento vertical del origen del pegado.
      * @param opaco Verdadero si el pegado debe ser opaco.
      */
-    void pega (const Imagen& imagen, const Imagen& mascara, const bool transparente, const int offset_horizontal, const int offset_vertical);
+    void pega (const Imagen& imagen, const Imagen& mascara, const bool transparente, const int offset_x, const int offset_y);
 
     /**
      * Número de filas de la imagen.

@@ -3,7 +3,7 @@
 using namespace std;
 
 
-void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool transparente, const int offset_horizontal, const int offset_vertical) {
+void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool transparente, const int offset_x, const int offset_y) {
     // Comprueba que la imagen y la máscara tengan las mismas dimensiones.
     int filas = imagen.numFilas();
     int columnas = imagen.numColumnas();
@@ -15,13 +15,13 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
 	for (int i=0; i<filas; ++i)
 	    for (int j=0; j<columnas; ++j)
 		if (mascara[i][j].transparencia == 255)
-		    at(i + offset_horizontal).at(j + offset_vertical) = imagen[i][j];
+		    at(i + offset_x).at(j + offset_y) = imagen[i][j];
     }
     else {
 	for (int i=0; i<filas; ++i) {
 	    for (int j=0; j<columnas; ++j) {
 		if (mascara[i][j].transparencia == 255) {
-		    Pixel& actual = at(i+offset_horizontal).at(j+offset_vertical);
+		    Pixel& actual = at(i+offset_x).at(j+offset_y);
 		    Pixel nuevo = imagen[i][j];
 
 		    actual.red = actual.red / 2 + nuevo.red / 2;
@@ -250,7 +250,7 @@ bool Imagen::LeerCabecera (istream& input, int& filas, int& columnas) {
 
 void Imagen::saltarComentarios (istream& input) {
     // Salta todas las líneas que comiencen con #.
-    static const int SALTO_MAXIMO = numeric_limits<streamsize>::max();
+    static const int SALTO_MAXIMO = 10000;
     while (saltarSeparadores(input) == '#')
 	input.ignore (SALTO_MAXIMO, '\n');
 }
