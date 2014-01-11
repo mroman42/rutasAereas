@@ -160,7 +160,7 @@ istream& operator >> (istream& input, Imagen& leida) {
 		actual.red   = buffer[posicion_buffer];
 		actual.green = buffer[posicion_buffer];
 		actual.blue  = buffer[posicion_buffer];
-		actual.transparencia = 0;
+		actual.transparencia = buffer[posicion_buffer];
 		++posicion_buffer;
 	    }
 	}	
