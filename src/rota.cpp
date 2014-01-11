@@ -34,7 +34,7 @@ int main(int argc, char* argv []) {
     Imagen imagen_leida;
     fstream entrada (archivo_imagen);
     entrada >> imagen_leida;
-
+    entrada.close();
 
     // Rota los grados pedidos.
     imagen_leida.rota(grados_rotacion);
@@ -43,4 +43,5 @@ int main(int argc, char* argv []) {
     // Escribe la imagen en el archivo de salida.
     fstream salida (archivo_salida, fstream::out);
     salida << imagen_leida;
+    salida.close();
 }
