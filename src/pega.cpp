@@ -45,7 +45,7 @@ int main (int argc, char* argv []) {
     string archivo_salida = argv[4];
     int desplazamiento_filas = atoi(argv[5]);
     int desplazamiento_columnas = atoi(argv[6]);
-    bool transparente = argv[7];
+    bool transparente = atoi(argv[7]) == 1 ;
 
     // Obtiene las imágenes de los ficheros indicados.
     Imagen fondo;
