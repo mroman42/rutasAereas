@@ -276,7 +276,7 @@ char Imagen::saltarSeparadores (istream& input) {
  */
 
 ostream& operator << (std::ostream& output, const Imagen& imagen) {
-    static const int MAXIMO = 225; 
+    static const int MAXIMO = 255; 
     int filas = imagen.numFilas();
     int columnas = imagen.numColumnas();
 
