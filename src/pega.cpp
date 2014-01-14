@@ -7,6 +7,14 @@
 using namespace std;
 
 /**
+ * Lee una imagen desde un archivo y comprueba que no haya errores.
+ * @param archivo Archivo desde el que se lee.
+ * @return Imagen leída.
+ */
+Imagen leeArchivo (string archivo);
+
+
+/**
  * Programa para el pegado de imágenes.
  * Dada una imagen de fondo, una segunda imagen y una máscara,
  * superpone la segunda imagen sobre la primera usando la máscara.
@@ -48,31 +56,33 @@ int main (int argc, char* argv []) {
     bool transparente = atoi(argv[7]) == 1 ;
 
     // Obtiene las imágenes de los ficheros indicados.
-    Imagen fondo;
-    Imagen imagen;
-    Imagen mascara;
-
-    fstream input;
-
-    input.open (archivo_fondo);
-    input >> fondo;
-    input.close ();
-
-    input.open (archivo_imagen);
-    input >> imagen;
-    input.close ();
-
-    input.open (archivo_mascara);
-    input >> mascara;
-    input.close ();
+    Imagen fondo = leeArchivo (archivo_fondo);
+    Imagen imagen = leeArchivo (archivo_imagen);
+    Imagen mascara = leeArchivo (archivo_mascara);   
 
 
     // Realiza el pegado de la imagen.
-    fondo.pega (imagen, mascara, transparente, desplazamiento_filas, desplazamiento_columnas);
+    //fondo.pega (imagen, mascara, transparente, desplazamiento_filas, desplazamiento_columnas);
 
 
     // Escribe la imagen resultante.
     fstream salida (archivo_salida, fstream::out);
     salida << fondo;
     salida.close();
+}
+
+
+Imagen leeArchivo (string archivo) {
+    Imagen leida;
+    fstream input (archivo);
+    
+    if (!input.is_open()) {
+	cerr << "Error al abrir el archivo " << archivo << endl;
+	exit(-1);
+    }
+    
+    input >> leida;
+    input.close ();
+
+    return leida;
 }
