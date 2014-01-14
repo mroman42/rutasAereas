@@ -15,7 +15,7 @@ INCLUDES = $(INCLUDE)/almacen.h $(INCLUDE)/punto.h $(INCLUDE)/pais.h $(INCLUDE)/
 
 # Compliación
 CC = g++
-CFLAGS = -Wall --std=c++11 -I$(INCLUDE)
+CFLAGS = -Wall --std=c++11 -I$(INCLUDE) -g -D_GLIBCXX_DEBUG
 
 
 
