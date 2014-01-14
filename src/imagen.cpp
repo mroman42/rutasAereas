@@ -10,6 +10,9 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
     if (filas != mascara.numFilas() or columnas != mascara.numColumnas())
 	return;
 
+    cerr << "Filas: " << filas << endl;
+    cerr << "Columnas: " << columnas << endl;
+
     // Copia los pixeles de la imagen dada en la imagen actual.
     if (!transparente) {
 	for (int i=0; i<filas; ++i)
@@ -201,33 +204,32 @@ Imagen::Buffer Imagen::leerImagenPPM (istream& input, int& filas, int& columnas)
     // Si puede leer la cabecera correctamente,
     // reserva espacio para el buffer y lo vuelca directamente.
     if (LeerCabecera (input, filas, columnas)) {
-	int tamanio_buffer = filas * columnas * 3;
-	Buffer buffer = new unsigned char[tamanio_buffer]; 
-    
-	if (input.read((char*) buffer, tamanio_buffer))
+	const int tamanio_buffer = filas * columnas * 3 + 1;
+	Buffer buffer = new unsigned char[tamanio_buffer];
+
+	if (input.read(reinterpret_cast<char *>(buffer), tamanio_buffer) >= 0)
 	    return buffer;
     }
 
     // Caso de lectura errónea.
-    filas = 0;
-    columnas = 0;
+    cerr << "Lectura errónea." << endl;
     return NULL;
+    
 }
 
 Imagen::Buffer Imagen::leerImagenPGM (istream& input, int& filas, int& columnas) {
     // Si puede leer la cabecera correctamente,
     // reserva espacio para el buffer y lo vuelca directamente.
     if (LeerCabecera (input, filas, columnas)) {
-	int tamanio_buffer = filas * columnas;
+	const int tamanio_buffer = filas * columnas + 1;
 	Buffer buffer = new unsigned char [tamanio_buffer]; 
-    
-	if (input.read((char*) buffer, tamanio_buffer))
+
+	if (input.read(reinterpret_cast<char *>(buffer), tamanio_buffer) >= 0)
 	    return buffer;
     }
   
     // Caso de lectura errónea.
-    filas = 0;
-    columnas = 0;
+    cerr << "Lectura errónea." << endl;
     return NULL;
 }
 
