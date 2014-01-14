@@ -13,6 +13,7 @@ using namespace std;
  */
 Imagen leeArchivo (string archivo);
 
+void muestraImagenPPM (Imagen& imagen);
 
 /**
  * Programa para el pegado de imágenes.
@@ -62,7 +63,7 @@ int main (int argc, char* argv []) {
 
 
     // Realiza el pegado de la imagen.
-    //fondo.pega (imagen, mascara, transparente, desplazamiento_filas, desplazamiento_columnas);
+    fondo.pega (imagen, mascara, transparente, desplazamiento_filas, desplazamiento_columnas);
 
 
     // Escribe la imagen resultante.
@@ -80,9 +81,19 @@ Imagen leeArchivo (string archivo) {
 	cerr << "Error al abrir el archivo " << archivo << endl;
 	exit(-1);
     }
-    
+
     input >> leida;
     input.close ();
 
     return leida;
+}
+
+
+void muestraImagenPPM (Imagen& imagen) {
+    for (int i=0; i<imagen.numFilas(); ++i) {
+	for (int j=0; j<imagen.numColumnas(); ++j) {
+	    Pixel& actual = imagen[i][j];
+	    cerr << "Pixel(" << (int)actual.red << ',' << (int)actual.blue << ',' << (int)actual.green << ")" << endl;
+	}
+    }
 }

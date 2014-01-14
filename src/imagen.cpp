@@ -135,7 +135,6 @@ istream& operator >> (istream& input, Imagen& leida) {
     leida = Imagen(filas, columnas);
     leida.tipo = tipo;
 
-
     if (tipo == Imagen::IMAGEN_PPM) {
 	for (int i=0; i<filas; ++i) {
 	    for (int j=0; j<columnas; ++j) {
