@@ -13,7 +13,6 @@ using namespace std;
  */
 Imagen leeArchivo (string archivo);
 
-void muestraImagenPPM (Imagen& imagen);
 
 /**
  * Programa para el pegado de imágenes.
@@ -67,7 +66,7 @@ int main (int argc, char* argv []) {
 
 
     // Escribe la imagen resultante.
-    fstream salida (archivo_salida, fstream::out);
+    fstream salida (archivo_salida, fstream::out | fstream::binary);
     salida << fondo;
     salida.close();
 }
@@ -86,14 +85,4 @@ Imagen leeArchivo (string archivo) {
     input.close ();
 
     return leida;
-}
-
-
-void muestraImagenPPM (Imagen& imagen) {
-    for (int i=0; i<imagen.numFilas(); ++i) {
-	for (int j=0; j<imagen.numColumnas(); ++j) {
-	    Pixel& actual = imagen[i][j];
-	    cerr << "Pixel(" << (int)actual.red << ',' << (int)actual.blue << ',' << (int)actual.green << ")" << endl;
-	}
-    }
 }

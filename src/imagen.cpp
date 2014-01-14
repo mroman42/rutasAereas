@@ -9,15 +9,12 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
     int columnas = imagen.numColumnas();
     if (filas != mascara.numFilas() or columnas != mascara.numColumnas())
 	return;
-
-    cerr << "Filas: " << filas << endl;
-    cerr << "Columnas: " << columnas << endl;
-
+    
     // Copia los pixeles de la imagen dada en la imagen actual.
     if (!transparente) {
 	for (int i=0; i<filas; ++i)
 	    for (int j=0; j<columnas; ++j)
-		if (mascara[i][j].transparencia == 255)
+		if (mascara[i][j].transparencia > 0)
 		    at(i + offset_x).at(j + offset_y) = imagen[i][j];
     }
     else {
