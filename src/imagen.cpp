@@ -138,12 +138,11 @@ istream& operator >> (istream& input, Imagen& leida) {
 	for (int i=0; i<filas; ++i) {
 	    for (int j=0; j<columnas; ++j) {
 		Pixel& actual = leida[i][j];
-		actual.red = input.get();
+		actual.red   = input.get();
 		actual.green = input.get();
-		actual.blue = input.get();
+		actual.blue  = input.get();
 		actual.transparencia = 0;
 
-		cerr << "Pixel(" << (int)actual.red << ',' << (int)actual.blue << ',' << (int)actual.green << ")" << endl;
 	    }
 	}
     }
@@ -251,7 +250,6 @@ ostream& operator << (std::ostream& output, const Imagen& imagen) {
 		for (int j=0; j<columnas; ++j) {
 		    const Pixel& actual = imagen[i][j];
 		    output << actual.red << actual.green << actual.blue;
-		    cerr << "OUTPUT: " << (int)actual.red << ',' << (int)actual.green << ',' << (int)actual.blue << endl;
 		}
 	}
     }
