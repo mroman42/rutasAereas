@@ -124,46 +124,40 @@ void Imagen::rota (double angulo) {
 
 istream& operator >> (istream& input, Imagen& leida) {
     Imagen::TipoImagen tipo = Imagen::leerTipoImagen(input);
-    Imagen::Buffer buffer;
     int filas, columnas;
 
-    // Intenta lectura según el tipo leído.
-    switch (tipo) {
-    case Imagen::IMAGEN_PPM: buffer = Imagen::leerImagenPPM(input, filas, columnas); break;
-    case Imagen::IMAGEN_PGM: buffer = Imagen::leerImagenPGM(input, filas, columnas); break;
-    default: input.setstate (ios::failbit); return input;
-    }
+    if (!leida.LeerCabecera (input, filas, columnas))
+	cerr << "Error al leer la cabecera";
+    
     
     // Lleva el buffer a la matriz de la imagen.
     // Controla el tamaño del buffer según filas y columnas.
     leida = Imagen(filas, columnas);
     leida.tipo = tipo;
-    
-    if (tipo == Imagen::IMAGEN_PPM) {
-	int posicion_buffer = 0;
 
+
+    if (tipo == Imagen::IMAGEN_PPM) {
 	for (int i=0; i<filas; ++i) {
 	    for (int j=0; j<columnas; ++j) {
 		Pixel& actual = leida[i][j];
-		actual.red   = buffer[posicion_buffer++];
-		actual.green = buffer[posicion_buffer++];
-		actual.blue  = buffer[posicion_buffer++];
+		input >> actual.red;
+		input >> actual.green;
+		input >> actual.blue;
 		actual.transparencia = 0;
+
+		cerr << "Pixel(" << (int)actual.red << ',' << (int)actual.blue << ',' << (int)actual.green << ")" << endl;
 	    }
 	}
     }
     
     if (tipo == Imagen::IMAGEN_PGM) {
-	int posicion_buffer = 0;
-	
 	for (int i=0; i<filas; ++i) {
 	    for (int j=0; j<columnas; ++j) {
 		Pixel& actual = leida[i][j];
-		actual.red   = buffer[posicion_buffer];
-		actual.green = buffer[posicion_buffer];
-		actual.blue  = buffer[posicion_buffer];
-		actual.transparencia = buffer[posicion_buffer];
-		++posicion_buffer;
+		actual.red   = 0;
+		actual.green = 0;
+		actual.blue  = 0;
+		input >> actual.transparencia;
 	    }
 	}	
     }
@@ -197,40 +191,6 @@ Imagen::TipoImagen Imagen::leerTipoImagen (istream& input) {
 
     return tipo;
 
-}
-
-
-Imagen::Buffer Imagen::leerImagenPPM (istream& input, int& filas, int& columnas) {
-    // Si puede leer la cabecera correctamente,
-    // reserva espacio para el buffer y lo vuelca directamente.
-    if (LeerCabecera (input, filas, columnas)) {
-	const int tamanio_buffer = filas * columnas * 3 + 1;
-	Buffer buffer = new unsigned char[tamanio_buffer];
-
-	if (input.read(reinterpret_cast<char *>(buffer), tamanio_buffer) >= 0)
-	    return buffer;
-    }
-
-    // Caso de lectura errónea.
-    cerr << "Lectura errónea." << endl;
-    return NULL;
-    
-}
-
-Imagen::Buffer Imagen::leerImagenPGM (istream& input, int& filas, int& columnas) {
-    // Si puede leer la cabecera correctamente,
-    // reserva espacio para el buffer y lo vuelca directamente.
-    if (LeerCabecera (input, filas, columnas)) {
-	const int tamanio_buffer = filas * columnas + 1;
-	Buffer buffer = new unsigned char [tamanio_buffer]; 
-
-	if (input.read(reinterpret_cast<char *>(buffer), tamanio_buffer) >= 0)
-	    return buffer;
-    }
-  
-    // Caso de lectura errónea.
-    cerr << "Lectura errónea." << endl;
-    return NULL;
 }
 
 
