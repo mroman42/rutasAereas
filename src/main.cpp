@@ -87,7 +87,7 @@ int main(int argc, char * argv[]){
     archivo_mascara >> mascara;
 
 
-    //Cerramos los archivos de entrada
+    // Cerramos los archivos de entrada
     archivo_paises.close();
     archivo_mapa.close();
     archivo_almacen.close();
@@ -99,9 +99,13 @@ int main(int argc, char * argv[]){
     /**
      * Bloque de cómputos.
      */
-    //Obtenemos la ruta
-    Ruta ruta(almacen.obtenerRuta(argv[7]));
-
+    // Obtenemos la ruta.
+    Ruta ruta = almacen.obtenerRuta(argv[7]);
+    if (ruta.empty()) {
+	cerr << "La ruta indicada no existe o está vacía.\n";
+	exit(-1);
+    }
+    
 
     cout << "La ruta se escribe como: " << endl;
     cout << argv[7] << '\t' << ruta << endl;
