@@ -5,13 +5,30 @@
 using namespace std;
 
 /**
- * Ejemplo de uso del almacén de rutas para la práctica 3.
+ * Programa para mostrar el mapa sobre el que se señalizan las rutas.
+ * Se invocará usando como argumentos:
+ *   rutas  <datos de países> <mapa> <directorio de banderas> <almacén de rutas> <avión> <máscara> <ruta>
+ * Mostrará por pantalla los datos de la ruta indicada y creará la imagen pedida en disco.
+ * La imagen de salida tendrá como nombre: <ruta>.ppm.
  */
 
 int main(int argc, char * argv[]){
-    // Lectura de argumentos
-    if (argc != 3) {
-	cout << "Introduzca como argumentos los ficheros de entrada.\nPrimero, el almacén, y luego, los países." << endl;
+    typedef const string Mensaje;
+    const int NUM_ARGS = 8;
+    Mensaje MSGARGS [] = {"Introduzca los siguientes argumentos:",
+			  " 1. Fichero de datos de países.",
+			  " 2. Mapa del mundo.",
+			  " 3. Directorio de banderas.",
+			  " 4. Almacén de rutas.",
+			  " 5. Imagen del avión.",
+			  " 6. Máscara del avión.",
+			  " 7. Ruta a realizar."};
+	
+    
+    // Lectura y comprobación de argumentos
+    if (argc != NUM_ARGS) {
+	for (int i=0; i<NUM_ARGS; ++i)
+	    cerr << MSGARGS[i] << endl;
 	return 0;
     }
 
