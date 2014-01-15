@@ -37,7 +37,7 @@ int main(int argc, char* argv []) {
     entrada.close();
 
     // Rota los grados pedidos.
-    //imagen_leida.rota(grados_rotacion);
+    imagen_leida.rota(grados_rotacion);
 
 
     // Escribe la imagen en el archivo de salida.
