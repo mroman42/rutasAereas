@@ -137,7 +137,7 @@ public:
      */
     Imagen (int filas = 0, int columnas = 0) 
 	: std::vector < std::vector<Pixel> >(filas, std::vector<Pixel>(columnas))
-    {}
+	{}
 
 
     /**

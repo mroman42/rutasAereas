@@ -15,7 +15,7 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
 	for (int i=0; i<filas; ++i)
 	    for (int j=0; j<columnas; ++j)
 		if (mascara[i][j].transparencia > 0)
-		    at(i + offset_x).at(j + offset_y) = imagen[i][j];
+		    at(i + offset_x).at(j + offset_y) = imagen.at(i).at(j);
     }
     else {
 	for (int i=0; i<filas; ++i) {
@@ -29,7 +29,7 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
 		    actual.green = actual.green / 2 + nuevo.green / 2;
 		}
 	    }
-	}	    
+	}
     }
 }
 
@@ -139,7 +139,6 @@ istream& operator >> (istream& input, Imagen& leida) {
 		actual.green = input.get();
 		actual.blue  = input.get();
 		actual.transparencia = 0;
-
 	    }
 	}
     }
