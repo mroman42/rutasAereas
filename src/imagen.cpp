@@ -9,20 +9,6 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
     int columnas = imagen.numColumnas();
     if (filas != mascara.numFilas() or columnas != mascara.numColumnas())
 	return;
-    
-
-    for (int i=0; i<numFilas(); ++i){
-        Pixel& actual = at(i).at(300);
-
-        actual.red = 255;
-        actual.blue = 0;
-        actual.green = 0;
-    }
-
-
-
-
-
 
     // Copia los pixeles de la imagen dada en la imagen actual.
     if (!transparente) {
