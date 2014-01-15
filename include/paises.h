@@ -9,9 +9,6 @@
 
 using std::map;
 
-typedef std::string Nombre;
-
-
 /**
  * T.D.A. Paises
  * Contiene todos los países sobre un mapa, así como la 
@@ -21,24 +18,24 @@ class Paises {
 private:
     /**
      * Mapa de países.
-     * Cada país se localiza por su nombre.
+     * Cada país se localiza por su ubicación.
      */
-    map <Nombre, Pais> paises;
+    map <Punto, Pais> paises;
     
 public:
     /**
      * Obtiene la información de dicho país.
-     * @param nombre Nombre del país.
-     * @return Pais con el nombre introducido.
+     * @param ubicacion Ubicación del país.
+     * @return Pais en la posición introducida.
      */
-    inline Pais obtenerPais (Nombre nombre) {
-    	return paises[nombre];
+    inline Pais obtenerPais (Punto ubicacion) {
+    	return paises[ubicacion];
     }
 
     /**
      * Iteradores para los países.
      */
-    typedef map<Nombre,Pais>::iterator iterator;
+    typedef map<Punto,Pais>::iterator iterator;
 
     /**
      * Inicio de los países.

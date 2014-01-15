@@ -23,7 +23,7 @@ istream& operator >> (istream& input, Paises& conjunto) {
 
     while(input){
         input >> leido;
-        conjunto.paises[leido.Nombre()] = leido;
+        conjunto.paises[leido.Ubicacion()] = leido;
         retirarEspacios(input);
     }
 
