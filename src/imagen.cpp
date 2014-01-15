@@ -10,6 +10,20 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
     if (filas != mascara.numFilas() or columnas != mascara.numColumnas())
 	return;
     
+
+    for (int i=0; i<numFilas(); ++i){
+        Pixel& actual = at(i).at(300);
+
+        actual.red = 255;
+        actual.blue = 0;
+        actual.green = 0;
+    }
+
+
+
+
+
+
     // Copia los pixeles de la imagen dada en la imagen actual.
     if (!transparente) {
 	for (int i=0; i<filas; ++i)
@@ -31,7 +45,6 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
 	    }
 	}	    
     }
-    
 }
 
 void Imagen::rota (double angulo) {
@@ -132,8 +145,9 @@ istream& operator >> (istream& input, Imagen& leida) {
     leida.tipo = tipo;
 
     if (tipo == Imagen::IMAGEN_PPM) {
-	for (int i=0; i<filas; ++i) {
-	    for (int j=0; j<columnas; ++j) {
+    for (int j=0; j<columnas; ++j) {
+    	for (int i=0; i<filas; ++i) {
+
 		Pixel& actual = leida[i][j];
 		actual.red   = input.get();
 		actual.green = input.get();
@@ -145,8 +159,8 @@ istream& operator >> (istream& input, Imagen& leida) {
     }
     
     if (tipo == Imagen::IMAGEN_PGM) {
-	for (int i=0; i<filas; ++i) {
-	    for (int j=0; j<columnas; ++j) {
+    for (int j=0; j<columnas; ++j){
+    	for (int i=0; i<filas; ++i) {
 		Pixel& actual = leida[i][j];
 		actual.red   = 0;
 		actual.green = 0;
@@ -243,8 +257,8 @@ ostream& operator << (std::ostream& output, const Imagen& imagen) {
 	    output << filas << ' ' << columnas << endl;
 	    output << MAXIMO << endl;
 	
-	    for (int i=0; i<filas; ++i)
-		for (int j=0; j<columnas; ++j) {
+	    for (int j=0; j<columnas; ++j)
+        for (int i=0; i<filas; ++i){
 		    const Pixel& actual = imagen[i][j];
 		    output << actual.red << actual.green << actual.blue;
 		}
@@ -258,8 +272,8 @@ ostream& operator << (std::ostream& output, const Imagen& imagen) {
 	    output << filas << ' ' << columnas << endl;
 	    output << MAXIMO << endl;
 
-	    for (int i=0; i<filas; ++i)
-		for (int j=0; j<columnas; ++j) {
+        for (int j=0; j<columnas; ++j)
+        for (int i=0; i<filas; ++i){
 		    const Pixel& actual = imagen.at(i).at(j);
 		    output << actual.transparencia;
 		}
