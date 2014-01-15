@@ -32,7 +32,7 @@ int main(int argc, char * argv[]){
     if (argc != NUM_ARGS) {
         for (int i=0; i<NUM_ARGS; ++i)
             cerr << MSGARGS[i] << endl;
-        return 0;
+        return -1;
     }
 
     // Apertura de los ficheros de entrada.
@@ -44,28 +44,23 @@ int main(int argc, char * argv[]){
 
     if (!archivo_paises) {
         cerr << "Error al abrir el archivo " << argv[1] << endl;
-        exit(-1);
-        return 0;
+        return -1;
     }
     if (!archivo_mapa) {
         cerr << "Error al abrir el archivo " << argv[2] << endl;
-        exit(-1);
-        return 0;
+        return -1;
     }
     if (!archivo_almacen) {
         cerr << "Error al abrir el archivo " << argv[4] << endl;
-        exit(-1);
-        return 0;
+        return -1;
     }
     if (!archivo_avion) {
         cerr << "Error al abrir el archivo " << argv[5] << endl;
-        exit(-1);
-        return 0;
+        return -1;
     }
     if (!archivo_mascara) {
         cerr << "Error al abrir el archivo " << argv[6] << endl;
-        exit(-1);
-        return 0;
+        return -1;
     }
 
 
