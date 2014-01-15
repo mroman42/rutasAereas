@@ -66,6 +66,33 @@ int main(int argc, char * argv[]){
     }
 
 
+    // Obtiene los países y su información del fichero indicado.
+    Paises conjunto;
+    archivo_paises >> conjunto;
+
+    // Obtiene las rutas y puntos de interés del fichero indicado.
+    Almacen almacen;
+    archivo_almacen >> almacen;
+
+    // Obtiene las imágenes de los ficheros indicados.
+    Imagen mapa;
+    Imagen avion;
+    Imagen mascara;
+
+    archivo_mapa >> mapa;   
+    archivo_avion >> avion;
+    archivo_mascara >> mascara;
+
+
+    //Cerramos los archivos de entrada
+    archivo_paises.close();
+    archivo_mapa.close();
+    archivo_almacen.close();
+    archivo_avion.close();
+    archivo_mascara.close();
+
+
+
 
 
 
