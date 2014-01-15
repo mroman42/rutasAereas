@@ -22,8 +22,11 @@ istream& operator >> (istream& input, Paises& conjunto) {
 	    input.get();
 
     while(input){
-        input >> leido;
-        conjunto.paises[leido.Ubicacion()] = leido;
+        input >> leido.ubicacion.Latitud();
+        input >> leido.ubicacion.Longitud();
+        input >> leido.nombre;
+        input >> leido.bandera;
+        conjunto.paises[leido.ubicacion] = leido;
         retirarEspacios(input);
     }
 
@@ -41,8 +44,12 @@ ostream& operator << (ostream& output, Paises& conjunto) {
      */
     output << "Los países son: \n";
 
+    Pais pais;
+
     for (Paises::iterator it = conjunto.begin(); it != conjunto.end(); ++it) {
-	    output << it->second;
+	    pais = it->second;
+
+        cout << pais.nombre << ": Está en " << pais.ubicacion << " y su bandera está en " << pais.bandera << "\n";
     }
 
     return output;

@@ -4,10 +4,32 @@
 #include <string>
 #include <iostream>
 #include <list>
-#include "pais.h"
+#include "punto.h"
 #include <map>
 
 using std::map;
+using std::string;
+
+/**
+ * El struct Pais contiene la información de un pais del conjunto
+ */
+struct Pais {
+    /**
+     * Coordenadas del país sobre el mapa.
+     */
+    Punto ubicacion;
+    
+    /**
+     * Nombre del país y ruta de la imagen a la bandera del país.
+     */
+    string nombre;
+    string bandera;
+
+    /**
+     * Constructor del pais.
+     */
+};
+
 
 /**
  * T.D.A. Paises
@@ -56,7 +78,7 @@ public:
      * @param input Flujo de lectura.
      * @param paises Conjunto de países contenidos.
      */
-    friend std::istream& operator >> (std::istream& input, Paises& paises);
+    friend std::istream& operator >> (std::istream& input, Paises& conjunto);
 
     /**
      * Imprime todos los países.
