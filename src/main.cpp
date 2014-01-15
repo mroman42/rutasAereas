@@ -13,6 +13,9 @@ using namespace std;
  * La imagen de salida tendrá como nombre: <ruta>.ppm.
  */
 int main(int argc, char * argv[]){
+    /**
+     * Bloque de entradas.
+     */
     typedef const string Mensaje;
     const int NUM_ARGS = 8;
     Mensaje MSGARGS [] = {"Introduzca los siguientes argumentos:",
@@ -92,12 +95,18 @@ int main(int argc, char * argv[]){
     archivo_mascara.close();
 
 
+
+    /**
+     * Bloque de cómputos.
+     */
     //Obtenemos la ruta
     Ruta ruta(almacen.obtenerRuta(argv[7]));
+
 
     cout << "La ruta se escribe como: " << endl;
     cout << argv[7] << '\t' << ruta << endl;
     cout << endl;
+
 
     return 0;  
 }
