@@ -28,17 +28,9 @@ struct Pais {
 
 /**
  * T.D.A. Paises
- * Contiene todos los países sobre un mapa, así como la 
- * información asociada.
+ * Mapa de países ordenados por ubicación
  */
-class Paises {
-private:
-    /**
-     * Mapa de países.
-     * Cada país se localiza por su ubicación.
-     */
-    map <Punto, Pais> paises;
-    
+class Paises : map <Punto, Pais> {    
 public:
     /**
      * Obtiene la información de dicho país.
@@ -46,26 +38,7 @@ public:
      * @return Pais en la posición introducida.
      */
     inline Pais obtenerPais (Punto ubicacion) {
-    	return paises[ubicacion];
-    }
-
-    /**
-     * Iteradores para los países.
-     */
-    typedef map<Punto,Pais>::iterator iterator;
-
-    /**
-     * Inicio de los países.
-     */
-    inline iterator begin () {
-    	return paises.begin();
-    }
-
-    /**
-     * Final de los países.
-     */
-    inline iterator end () {
-    	return paises.end();
+    	return operator[](ubicacion);
     }
 
     /**

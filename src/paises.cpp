@@ -25,7 +25,7 @@ istream& operator >> (istream& input, Paises& conjunto) {
         input >> ubicacion.Latitud();
         input >> ubicacion.Longitud();
 
-        Pais& leido = conjunto.paises[ubicacion];
+        Pais& leido = conjunto[ubicacion];
 
         input >> leido.nombre;
         input >> leido.bandera;
