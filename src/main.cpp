@@ -92,9 +92,12 @@ int main(int argc, char * argv[]){
     archivo_mascara.close();
 
 
+    //Obtenemos la ruta
+    Ruta ruta(almacen.obtenerRuta(argv[7]));
 
-
-
+    cout << "La ruta se escribe como: " << endl;
+    cout << argv[7] << '\t' << ruta << endl;
+    cout << endl;
 
     return 0;  
 }
