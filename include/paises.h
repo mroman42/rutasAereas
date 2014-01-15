@@ -15,11 +15,6 @@ using std::string;
  */
 struct Pais {
     /**
-     * Coordenadas del país sobre el mapa.
-     */
-    Punto ubicacion;
-    
-    /**
      * Nombre del país y ruta de la imagen a la bandera del país.
      */
     string nombre;
