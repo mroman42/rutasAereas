@@ -45,7 +45,7 @@ public:
     /*
      * Devuelve su posición
      */
-    inline Punto Localizacion(){
+    inline Punto Ubicacion(){
         return ubicacion;
     }
 
