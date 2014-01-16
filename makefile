@@ -9,8 +9,8 @@ EXE = ./bin/rutas
 ROTA = ./bin/rota
 PEGA = ./bin/pega
 MAIN = $(SRC)/main.cpp
-SOURCES = $(SRC)/almacen.cpp $(SRC)/punto.cpp $(SRC)/pais.cpp $(SRC)/paises.cpp $(SRC)/imagen.cpp
-INCLUDES = $(INCLUDE)/almacen.h $(INCLUDE)/punto.h $(INCLUDE)/pais.h $(INCLUDE)/paises.h $(INCLUDE)/imagen.h
+SOURCES = $(SRC)/almacen.cpp $(SRC)/punto.cpp $(SRC)/paises.cpp $(SRC)/imagen.cpp
+INCLUDES = $(INCLUDE)/almacen.h $(INCLUDE)/punto.h $(INCLUDE)/paises.h $(INCLUDE)/imagen.h
 
 
 # Compliación
