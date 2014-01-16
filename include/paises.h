@@ -30,7 +30,7 @@ struct Pais {
  * T.D.A. Paises
  * Mapa de países ordenados por ubicación
  */
-class Paises : map <Punto, Pais> {    
+class Paises : public map <Punto, Pais> {    
 public:
     /**
      * Obtiene la información de dicho país.

@@ -5,6 +5,7 @@
 
 using namespace std;
 
+
 /**
  * Programa para mostrar el mapa sobre el que se señalizan las rutas.
  * Se invocará usando como argumentos:
@@ -65,8 +66,8 @@ int main(int argc, char * argv[]){
 
 
     // Obtiene los países y su información del fichero indicado.
-    Paises conjunto;
-    archivo_paises >> conjunto;
+    Paises paises;
+    archivo_paises >> paises;
 
     // Obtiene las rutas y puntos de interés del fichero indicado.
     Almacen almacen;
@@ -99,6 +100,11 @@ int main(int argc, char * argv[]){
     if (ruta.empty()) {
 	cerr << "La ruta indicada no existe o está vacía.\n";
 	exit(-1);
+    }
+    
+    typedef Ruta::iterator rit;
+    for (rit i = ruta.begin(); i != ruta.end(); ++i) {
+	cout << paises[*i].nombre << endl;
     }
     
 
