@@ -13,6 +13,9 @@ using namespace std;
  * La imagen de salida tendrá como nombre: <ruta>.ppm.
  */
 int main(int argc, char * argv[]){
+    /**
+     * Bloque de entradas.
+     */
     typedef const string Mensaje;
     const int NUM_ARGS = 8;
     Mensaje MSGARGS [] = {"Introduzca los siguientes argumentos:",
@@ -29,7 +32,7 @@ int main(int argc, char * argv[]){
     if (argc != NUM_ARGS) {
         for (int i=0; i<NUM_ARGS; ++i)
             cerr << MSGARGS[i] << endl;
-        return 0;
+        return -1;
     }
 
     // Apertura de los ficheros de entrada.
@@ -41,28 +44,23 @@ int main(int argc, char * argv[]){
 
     if (!archivo_paises) {
         cerr << "Error al abrir el archivo " << argv[1] << endl;
-        exit(-1);
-        return 0;
+        return -1;
     }
     if (!archivo_mapa) {
         cerr << "Error al abrir el archivo " << argv[2] << endl;
-        exit(-1);
-        return 0;
+        return -1;
     }
     if (!archivo_almacen) {
         cerr << "Error al abrir el archivo " << argv[4] << endl;
-        exit(-1);
-        return 0;
+        return -1;
     }
     if (!archivo_avion) {
         cerr << "Error al abrir el archivo " << argv[5] << endl;
-        exit(-1);
-        return 0;
+        return -1;
     }
     if (!archivo_mascara) {
         cerr << "Error al abrir el archivo " << argv[6] << endl;
-        exit(-1);
-        return 0;
+        return -1;
     }
 
 
@@ -84,7 +82,7 @@ int main(int argc, char * argv[]){
     archivo_mascara >> mascara;
 
 
-    //Cerramos los archivos de entrada
+    // Cerramos los archivos de entrada
     archivo_paises.close();
     archivo_mapa.close();
     archivo_almacen.close();
@@ -92,12 +90,22 @@ int main(int argc, char * argv[]){
     archivo_mascara.close();
 
 
-    //Obtenemos la ruta
-    Ruta ruta(almacen.obtenerRuta(argv[7]));
+
+    /**
+     * Bloque de cómputos.
+     */
+    // Obtenemos la ruta.
+    Ruta ruta = almacen.obtenerRuta(argv[7]);
+    if (ruta.empty()) {
+	cerr << "La ruta indicada no existe o está vacía.\n";
+	exit(-1);
+    }
+    
 
     cout << "La ruta se escribe como: " << endl;
     cout << argv[7] << '\t' << ruta << endl;
     cout << endl;
+
 
     return 0;  
 }
