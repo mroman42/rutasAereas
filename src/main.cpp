@@ -2,6 +2,10 @@
 #include "paises.h"
 #include "imagen.h"
 #include <fstream>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 using namespace std;
 
@@ -91,15 +95,14 @@ int main(int argc, char * argv[]){
     archivo_mascara.close();
 
 
-
     /**
      * Bloque de cómputos.
      */
     // Obtenemos la ruta.
     Ruta ruta = almacen.obtenerRuta(argv[7]);
     if (ruta.empty()) {
-	cerr << "La ruta indicada no existe o está vacía.\n";
-	exit(-1);
+        cerr << "La ruta indicada no existe o está vacía.\n";
+        exit(-1);
     }
     
     typedef Ruta::iterator rit;
@@ -112,6 +115,14 @@ int main(int argc, char * argv[]){
     }
     
 
+    //Creamos y abrimos el archivo de salida y grabamos la imagen
+    char * archivo_salida = argv[7];
+    strcat(archivo_salida, ".ppm");
+
+    creat(archivo_salida, S_IRWXU);
+    fstream salida (archivo_salida, fstream::out);
+    salida << mapa;
+    salida.close();
 
     return 0;  
 }
