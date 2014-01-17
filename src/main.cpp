@@ -103,14 +103,14 @@ int main(int argc, char * argv[]){
     }
     
     typedef Ruta::iterator rit;
-    for (rit i = ruta.begin(); i != ruta.end(); ++i) {
-	cout << paises[*i].nombre << endl;
-    }
-    
 
     cout << "La ruta se escribe como: " << endl;
-    cout << argv[7] << '\t' << ruta << endl;
-    cout << endl;
+    cout << argv[7] << "\n" << ruta.size() << " países:\n";
+
+    for (rit i = ruta.begin(); i != ruta.end(); ++i) {
+	cout << paises[*i].nombre << " " << *i << endl;
+    }
+    
 
 
     return 0;  
