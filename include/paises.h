@@ -23,7 +23,7 @@ struct Pais {
     /**
      * Constructor del pais.
      */
-    Pais(string name=Unknow, string flag=unknow)
+    Pais(string name="Unknow", string flag="unknow")
     : nombre(name), bandera(flag)
     {}
 };
