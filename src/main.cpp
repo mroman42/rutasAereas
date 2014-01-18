@@ -129,8 +129,6 @@ int main(int argc, char * argv[]){
         int pos_columnas = (total_columnas/360.0) * (180 + i->Longitud());
         int pos_filas = (total_filas/180.0) * (90 - i->Latitud());
 
-<<<<<<< HEAD
-
         // Pegado de bandera.
         ifstream archivo_bandera (dir_banderas + "/" + pais.bandera);
         if (!archivo_bandera) {
@@ -141,17 +139,7 @@ int main(int argc, char * argv[]){
         archivo_bandera >> bandera;
         archivo_bandera.close();
 
-        
         mapa.pega (bandera, VACIA, false, pos_filas, pos_columnas);
-=======
-        // Pegado de bandera.
-        ifstream archivo_bandera (dir_banderas + pais.bandera);
-        Imagen bandera;
-        archivo_bandera >> bandera;
-        archivo_bandera.close();
-
-        mapa.pega (bandera, VACIA, true, pos_filas, pos_columnas);
->>>>>>> db6bedba703981d44bab979a9b41dc242ada73c1
     }
 
     //Creamos y abrimos el archivo de salida y grabamos la imagen
