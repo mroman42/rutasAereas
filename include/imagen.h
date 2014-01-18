@@ -179,4 +179,7 @@ public:
     friend std::istream& operator >> (std::istream& input, Imagen& leida);
 };
 
+const Imagen VACIA (0,0);
+
+
 #endif

@@ -14,13 +14,13 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
     if (!transparente) {
 	for (int i=0; i<filas; ++i)
 	    for (int j=0; j<columnas; ++j)
-		if (mascara[i][j].transparencia > 0)
+		if (mascara.numFilas() == 0 or mascara[i][j].transparencia > 0)
 		    at(i + offset_x).at(j + offset_y) = imagen.at(i).at(j);
     }
     else {
 	for (int i=0; i<filas; ++i) {
 	    for (int j=0; j<columnas; ++j) {
-		if (mascara[i][j].transparencia == 255) {
+		if (mascara.numFilas() == 0 or mascara[i][j].transparencia > 0) {
 		    Pixel& actual = at(i+offset_x).at(j+offset_y);
 		    Pixel nuevo = imagen[i][j];
 

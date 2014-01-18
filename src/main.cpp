@@ -114,6 +114,24 @@ int main(int argc, char * argv[]){
 	cout << paises[*i].nombre << " " << *i << endl;
     }
     
+    // Recorrido de los países de la ruta.
+    // Pegado de banderas y países.
+    int total_columnas = mapa.numColumnas();
+    int total_filas    = mapa.numFilas();
+
+    for (rit i = ruta.begin(); i != ruta.end(); ++i) {
+        Pais& pais = paises[*i];
+        int pos_columnas = (total_columnas/360.0) * (180 + i->Longitud());
+        int pos_filas = (total_filas/180.0) * (90 - i->Latitud());
+
+        // Pegado de bandera.
+        // ifstream archivo_bandera (pais.bandera);
+        // Imagen bandera;
+        // archivo_bandera >> bandera;
+        // archivo_bandera.close();
+
+        // mapa.pega (bandera, VACIA, true, pos_filas, pos_columnas);
+    }
 
     //Creamos y abrimos el archivo de salida y grabamos la imagen
     char * archivo_salida = argv[7];
