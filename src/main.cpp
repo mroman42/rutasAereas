@@ -39,6 +39,9 @@ int main(int argc, char * argv[]){
             cerr << MSGARGS[i] << endl;
         return -1;
     }
+    
+    string ruta_elegida = argv[7];
+    string dir_banderas = argv[3];
 
     // Apertura de los ficheros de entrada.
     ifstream archivo_paises (argv[1]);
@@ -99,7 +102,7 @@ int main(int argc, char * argv[]){
      * Bloque de cómputos.
      */
     // Obtenemos la ruta.
-    Ruta ruta = almacen.obtenerRuta(argv[7]);
+    Ruta ruta = almacen.obtenerRuta(ruta_elegida);
     if (ruta.empty()) {
         cerr << "La ruta indicada no existe o está vacía.\n";
         exit(-1);
@@ -125,16 +128,16 @@ int main(int argc, char * argv[]){
         int pos_filas = (total_filas/180.0) * (90 - i->Latitud());
 
         // Pegado de bandera.
-        // ifstream archivo_bandera (pais.bandera);
-        // Imagen bandera;
-        // archivo_bandera >> bandera;
-        // archivo_bandera.close();
+        ifstream archivo_bandera (dir_banderas + pais.bandera);
+        Imagen bandera;
+        archivo_bandera >> bandera;
+        archivo_bandera.close();
 
         // mapa.pega (bandera, VACIA, true, pos_filas, pos_columnas);
     }
 
     //Creamos y abrimos el archivo de salida y grabamos la imagen
-    string archivo_salida = (string) argv[7] + ".ppm";
+    string archivo_salida = (string) ruta_elegida + ".ppm";
     fstream salida (archivo_salida, fstream::out);
     salida << mapa;
     salida.close();
