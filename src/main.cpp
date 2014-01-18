@@ -139,7 +139,7 @@ int main(int argc, char * argv[]){
         Imagen bandera;
         archivo_bandera >> bandera;
         archivo_bandera.close();
-        mapa.pega (bandera, VACIA, false, pos_filas - bandera.numFilas()/2, pos_columnas - bandera.numColumnas()/2);
+        mapa.pega (bandera, VACIA, true, pos_filas - bandera.numFilas()/2, pos_columnas - bandera.numColumnas()/2);
 
 	// Rotado del avión.
 	Imagen avion_rotado = avion;
@@ -154,8 +154,13 @@ int main(int argc, char * argv[]){
 	avion_rotado.rota (angulo);
 	mascara_rotada.rota (angulo);
 
+	// Avión medio
+	int med_pos_filas = (sig_pos_filas - pos_filas) / 2 + pos_filas;
+	int med_pos_columnas = (sig_pos_columnas - pos_columnas) / 2 + pos_columnas;
+	
 	// Pegado del avión.
 	mapa.pega (avion_rotado, mascara_rotada, false, pos_filas - avion.numFilas()/2, pos_columnas - avion.numColumnas()/2);
+	mapa.pega (avion_rotado, mascara_rotada, false, med_pos_filas - avion.numFilas()/2, med_pos_columnas - avion.numColumnas()/2);
     }
 
     //Creamos y abrimos el archivo de salida y grabamos la imagen
