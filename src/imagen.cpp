@@ -7,7 +7,7 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
     // Comprueba que la imagen y la máscara tengan las mismas dimensiones.
     int filas = imagen.numFilas();
     int columnas = imagen.numColumnas();
-    if (filas != mascara.numFilas() or columnas != mascara.numColumnas())
+    if ((filas != mascara.numFilas() or columnas != mascara.numColumnas()) and mascara.numFilas() != 0)
 	return;
 
     // Copia los pixeles de la imagen dada en la imagen actual.
