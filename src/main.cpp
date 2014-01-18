@@ -135,11 +135,14 @@ int main(int argc, char * argv[]){
             cerr << "Error al abrir el archivo ";
             return -1;
         }
+
         Imagen bandera;
         archivo_bandera >> bandera;
         archivo_bandera.close();
+        mapa.pega (bandera, VACIA, false, pos_filas - bandera.numFilas()/2, pos_columnas - bandera.numColumnas()/2);
 
-        mapa.pega (bandera, VACIA, false, pos_filas, pos_columnas);
+	// Pegado del avión.
+	mapa.pega (avion, mascara, true, pos_filas - avion.numFilas()/2, pos_columnas - avion.numColumnas()/2);
     }
 
     //Creamos y abrimos el archivo de salida y grabamos la imagen
