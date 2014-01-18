@@ -39,6 +39,9 @@ int main(int argc, char * argv[]){
             cerr << MSGARGS[i] << endl;
         return -1;
     }
+    
+    string ruta_elegida = argv[7];
+    string dir_banderas = argv[3];
 
     // Apertura de los ficheros de entrada.
     ifstream archivo_paises (argv[1]);
@@ -99,7 +102,7 @@ int main(int argc, char * argv[]){
      * Bloque de cómputos.
      */
     // Obtenemos la ruta.
-    Ruta ruta = almacen.obtenerRuta(argv[7]);
+    Ruta ruta = almacen.obtenerRuta(ruta_elegida);
     if (ruta.empty()) {
         cerr << "La ruta indicada no existe o está vacía.\n";
         exit(-1);
@@ -119,8 +122,6 @@ int main(int argc, char * argv[]){
     int total_columnas = mapa.numColumnas();
     int total_filas    = mapa.numFilas();
 
-    char * direccion_bandera;
-    direccion_bandera = new char[1000];
     Imagen bandera;
 
     for (rit i = ruta.begin(); i != ruta.end(); ++i) {
@@ -130,32 +131,21 @@ int main(int argc, char * argv[]){
 
 
         // Pegado de bandera.
-        strcpy(direccion_bandera, argv[3]);
-        strcat(direccion_bandera, "/");
-        strcat(direccion_bandera, pais.bandera.c_str());
-
-        cout << direccion_bandera << endl;
-
-
-        ifstream archivo_bandera (direccion_bandera);
+        ifstream archivo_bandera (dir_banderas + "/" + pais.bandera);
         if (!archivo_bandera) {
-            cerr << "Error al abrir el archivo " << direccion_bandera << endl;
+            cerr << "Error al abrir el archivo ";
             return -1;
         }
+        Imagen bandera;
         archivo_bandera >> bandera;
-
         archivo_bandera.close();
 
-        cout << bandera;
-
+        
         mapa.pega (bandera, VACIA, false, pos_filas, pos_columnas);
     }
 
     //Creamos y abrimos el archivo de salida y grabamos la imagen
-    char * archivo_salida = argv[7];
-    strcat(archivo_salida, ".ppm");
-
-    creat(archivo_salida, S_IRWXU);
+    string archivo_salida = (string) ruta_elegida + ".ppm";
     fstream salida (archivo_salida, fstream::out);
     salida << mapa;
     salida.close();
