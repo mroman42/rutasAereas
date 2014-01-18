@@ -33,9 +33,10 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
     }
 }
 
+
 void Imagen::rota (double angulo) {
     // Transforma a radianes y calcula seno y coseno.
-    double radianes = angulo * M_PI / 180.0;
+    double radianes = angulo;
     double coseno = cos(radianes);
     double seno = sin(radianes);
 

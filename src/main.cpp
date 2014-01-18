@@ -126,8 +126,8 @@ int main(int argc, char * argv[]){
 
     for (rit i = ruta.begin(); i != ruta.end(); ++i) {
         Pais& pais = paises[*i];
-        int pos_filas = (total_filas/360.0) * (180 + i->Longitud());
-        int pos_columnas = (total_columnas/180.0) * (90 - i->Latitud());
+        int pos_filas = (total_filas/360.0) * (180 + i->Longitud()) + 15;
+        int pos_columnas = (total_columnas/180.0) * (90 - i->Latitud()) + 20;
 
         // Pegado de bandera.
         ifstream archivo_bandera (dir_banderas + "/" + pais.bandera);
@@ -147,7 +147,9 @@ int main(int argc, char * argv[]){
 
 	rit siguiente = i; ++siguiente;
 	if (siguiente == ruta.end()) siguiente = ruta.begin();
-	double angulo = ((double)  (i->Longitud() - siguiente->Longitud())) / (siguiente->Latitud() - i->Latitud());
+	int sig_pos_filas = (total_filas/360.0) * (180 + siguiente->Longitud()) + 15;
+        int sig_pos_columnas = (total_columnas/180.0) * (90 - siguiente->Latitud()) + 20;
+	double angulo = ((double) (pos_columnas - sig_pos_columnas)) / (pos_filas - sig_pos_filas);
 
 	avion_rotado.rota (angulo);
 	mascara_rotada.rota (angulo);

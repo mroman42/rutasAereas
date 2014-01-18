@@ -28,7 +28,7 @@ int main(int argc, char* argv []) {
     string archivo_imagen = argv[1];
     string archivo_salida = argv[3];
     float grados_rotacion = strtod(argv[2], NULL);
-    
+    grados_rotacion = M_PI * grados_rotacion / 180.0;
     
     // Lee la imagen del archivo inicial.
     Imagen imagen_leida;
