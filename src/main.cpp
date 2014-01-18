@@ -133,7 +133,7 @@ int main(int argc, char * argv[]){
         archivo_bandera >> bandera;
         archivo_bandera.close();
 
-        // mapa.pega (bandera, VACIA, true, pos_filas, pos_columnas);
+        mapa.pega (bandera, VACIA, true, pos_filas, pos_columnas);
     }
 
     //Creamos y abrimos el archivo de salida y grabamos la imagen
