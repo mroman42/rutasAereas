@@ -134,10 +134,7 @@ int main(int argc, char * argv[]){
     }
 
     //Creamos y abrimos el archivo de salida y grabamos la imagen
-    char * archivo_salida = argv[7];
-    strcat(archivo_salida, ".ppm");
-
-    creat(archivo_salida, S_IRWXU);
+    string archivo_salida = (string) argv[7] + ".ppm";
     fstream salida (archivo_salida, fstream::out);
     salida << mapa;
     salida.close();
