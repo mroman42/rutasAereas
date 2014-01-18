@@ -120,7 +120,7 @@ int main(int argc, char * argv[]){
     // Recorrido de los países de la ruta.
     // Pegado de banderas y países.
     int total_columnas = mapa.numColumnas();
-    int total_filas    = mapa.numFilas();
+    int total_filas = mapa.numFilas();
 
     Imagen bandera;
 
@@ -139,28 +139,32 @@ int main(int argc, char * argv[]){
         Imagen bandera;
         archivo_bandera >> bandera;
         archivo_bandera.close();
-        mapa.pega (bandera, VACIA, true, pos_filas - bandera.numFilas()/2, pos_columnas - bandera.numColumnas()/2);
+        mapa.pega (bandera, VACIA, false, pos_filas - bandera.numFilas()/2, pos_columnas - bandera.numColumnas()/2);
 
-	// Rotado del avión.
-	Imagen avion_rotado = avion;
-	Imagen mascara_rotada = mascara;
+        // Rotado del avión.
+        Imagen avion_rotado = avion;
+        Imagen mascara_rotada = mascara;
 
-	rit siguiente = i; ++siguiente;
-	if (siguiente == ruta.end()) siguiente = ruta.begin();
-	int sig_pos_filas = (total_filas/360.0) * (180 + siguiente->Longitud()) + 15;
+        rit siguiente = i;
+        ++siguiente;
+
+        if (siguiente == ruta.end())
+            siguiente = ruta.begin();
+
+        int sig_pos_filas = (total_filas/360.0) * (180 + siguiente->Longitud()) + 15;
         int sig_pos_columnas = (total_columnas/180.0) * (90 - siguiente->Latitud()) + 20;
-	double angulo = atan2 (((double) (pos_columnas - sig_pos_columnas)), (sig_pos_filas - pos_filas));
+        double angulo = atan2 (((double) (pos_columnas - sig_pos_columnas)), (sig_pos_filas - pos_filas));
 
-	avion_rotado.rota (angulo);
-	mascara_rotada.rota (angulo);
+        avion_rotado.rota (angulo);
+        mascara_rotada.rota (angulo);
 
-	// Avión medio
-	int med_pos_filas = (sig_pos_filas - pos_filas) / 2 + pos_filas;
-	int med_pos_columnas = (sig_pos_columnas - pos_columnas) / 2 + pos_columnas;
-	
-	// Pegado del avión.
-	mapa.pega (avion_rotado, mascara_rotada, false, pos_filas - avion.numFilas()/2, pos_columnas - avion.numColumnas()/2);
-	mapa.pega (avion_rotado, mascara_rotada, false, med_pos_filas - avion.numFilas()/2, med_pos_columnas - avion.numColumnas()/2);
+        // Avión medio
+        int med_pos_filas = (sig_pos_filas + pos_filas) / 2;
+        int med_pos_columnas = (sig_pos_columnas + pos_columnas) / 2;
+
+        // Pegado del avión.
+        mapa.pega (avion_rotado, mascara_rotada, true, pos_filas - avion.numFilas()/2, pos_columnas - avion.numColumnas()/2);
+        mapa.pega (avion_rotado, mascara_rotada, false, med_pos_filas - avion.numFilas()/2, med_pos_columnas - avion.numColumnas()/2);
     }
 
     //Creamos y abrimos el archivo de salida y grabamos la imagen
