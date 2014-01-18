@@ -149,7 +149,7 @@ int main(int argc, char * argv[]){
 	if (siguiente == ruta.end()) siguiente = ruta.begin();
 	int sig_pos_filas = (total_filas/360.0) * (180 + siguiente->Longitud()) + 15;
         int sig_pos_columnas = (total_columnas/180.0) * (90 - siguiente->Latitud()) + 20;
-	double angulo = ((double) (pos_columnas - sig_pos_columnas)) / (pos_filas - sig_pos_filas);
+	double angulo = atan2 (((double) (pos_columnas - sig_pos_columnas)), (sig_pos_filas - pos_filas));
 
 	avion_rotado.rota (angulo);
 	mascara_rotada.rota (angulo);
