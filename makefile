@@ -3,6 +3,7 @@
 # Directorios
 SRC = ./src
 INCLUDE = ./include
+DOC=./doc
 
 # Archivos
 EXE = ./bin/rutas
@@ -31,7 +32,13 @@ $(ROTA): $(SRC)/rota.cpp $(SRC)/imagen.cpp
 $(PEGA): $(SRC)/pega.cpp $(SRC)/imagen.cpp
 	$(CC) $< $(SRC)/imagen.cpp -o $@ $(CFLAGS)
 
+## DOCUMENTACIÓN
+documentacion:
+	doxygen $(DOC)/doxys/Doxyfile
+
+## LIMPIEZA
 clean:
 	rm -f $(EXE)
 	rm -f $(ROTA)
 	rm -f $(PEGA)
+
