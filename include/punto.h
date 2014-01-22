@@ -1,3 +1,8 @@
+/**
+ * Práctica: Rutas Aéreas
+ * Asignatura: Estructura de Datos(2º DGIIM)
+ * Autores: Óscar Bermúdez Garrido y Mario Román García
+ */
 #ifndef _PUNTO_H
 #define _PUNTO_H
 
