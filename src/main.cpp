@@ -22,6 +22,8 @@ int main(int argc, char * argv[]){
      * Bloque de entradas.
      */
     typedef const string Mensaje;
+
+    //Mensajes de error.
     const int NUM_ARGS = 8;
     Mensaje MSGARGS [] = {"Introduzca los siguientes argumentos:",
 			  " 1. Fichero de datos de países.",
@@ -33,7 +35,7 @@ int main(int argc, char * argv[]){
 			  " 7. Ruta a realizar."};
 	
     
-    // Lectura y comprobación de argumentos
+    // Lectura y comprobación de argumentos.
     if (argc != NUM_ARGS) {
         for (int i=0; i<NUM_ARGS; ++i)
             cerr << MSGARGS[i] << endl;
@@ -90,7 +92,7 @@ int main(int argc, char * argv[]){
     archivo_mascara >> mascara;
 
 
-    // Cerramos los archivos de entrada
+    // Cerramos los archivos de entrada.
     archivo_paises.close();
     archivo_mapa.close();
     archivo_almacen.close();
@@ -101,7 +103,7 @@ int main(int argc, char * argv[]){
     /**
      * Bloque de cómputos.
      */
-    // Obtenemos la ruta.
+    // Obtenemos la ruta y mostramos la información más importante de ella.
     Ruta ruta = almacen.obtenerRuta(ruta_elegida);
     if (ruta.empty()) {
         cerr << "La ruta indicada no existe o está vacía.\n";
@@ -114,11 +116,11 @@ int main(int argc, char * argv[]){
     cout << argv[7] << "\n" << ruta.size() << " países:\n";
 
     for (rit i = ruta.begin(); i != ruta.end(); ++i) {
-	cout << paises[*i].nombre << " " << *i << endl;
+        cout << paises[*i].nombre << " " << *i << endl;
     }
     
     // Recorrido de los países de la ruta.
-    // Pegado de banderas y países.
+    // Pegado de banderas y aviones.
     int total_columnas = mapa.numColumnas();
     int total_filas = mapa.numFilas();
 
@@ -141,7 +143,7 @@ int main(int argc, char * argv[]){
         archivo_bandera.close();
         mapa.pega (bandera, VACIA, false, pos_filas - bandera.numFilas()/2, pos_columnas - bandera.numColumnas()/2);
 
-        // Rotado del avión.
+        // Rotado del avión parado en el aeropuerto.
         Imagen avion_rotado = avion;
         Imagen mascara_rotada = mascara;
 
@@ -158,16 +160,16 @@ int main(int argc, char * argv[]){
         avion_rotado.rota (angulo);
         mascara_rotada.rota (angulo);
 
-        // Avión medio
+        // Cálculo de la posición del avión surcando los cielos.
         int med_pos_filas = (sig_pos_filas + pos_filas) / 2;
         int med_pos_columnas = (sig_pos_columnas + pos_columnas) / 2;
 
-        // Pegado del avión.
+        // Pegado de los aviones.
         mapa.pega (avion_rotado, mascara_rotada, true, pos_filas - avion.numFilas()/2, pos_columnas - avion.numColumnas()/2);
         mapa.pega (avion_rotado, mascara_rotada, false, med_pos_filas - avion.numFilas()/2, med_pos_columnas - avion.numColumnas()/2);
     }
 
-    //Creamos y abrimos el archivo de salida y grabamos la imagen
+    //Creamos y abrimos el archivo de salida y grabamos la imagen en él.
     string archivo_salida = (string) ruta_elegida + ".ppm";
     fstream salida (archivo_salida, fstream::out);
     salida << mapa;

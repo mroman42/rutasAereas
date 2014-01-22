@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include "imagen.h"
+
 using namespace std;
 
 
@@ -19,16 +20,19 @@ int main(int argc, char* argv []) {
 
     // Comprueba el uso correcto del programa.
     if (argc != 4) {
-	cerr << MSG_ERROR;
-	cerr << MSG_USO;
-	return -1;
+        cerr << MSG_ERROR;
+        cerr << MSG_USO;
+        return -1;
     } 
 
     // Lee los argumentos.
     string archivo_imagen = argv[1];
     string archivo_salida = argv[3];
     float grados_rotacion = strtod(argv[2], NULL);
+
+    //Pasamos los grados de la rotación a radianes
     grados_rotacion = M_PI * grados_rotacion / 180.0;
+
     
     // Lee la imagen del archivo inicial.
     Imagen imagen_leida;
