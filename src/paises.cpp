@@ -21,6 +21,7 @@ istream& operator >> (istream& input, Paises& conjunto) {
     while (input.peek() != '\n' and input)
 	    input.get();
 
+    //Empezamos a leer países
     while(input){
         input >> ubicacion.Latitud();
         input >> ubicacion.Longitud();
@@ -47,7 +48,7 @@ ostream& operator << (ostream& output, Paises& conjunto) {
     output << "Los países son: \n";
 
     for (Paises::iterator it = conjunto.begin(); it != conjunto.end(); ++it) {
-        cout << it->second.nombre << ": Está en " << it->first << " y su bandera está en " << it->second.bandera << "\n";
+        cout << it->second.nombre << ": Está en " << it->first << " y su bandera es " << it->second.bandera << "\n";
     }
 
     return output;

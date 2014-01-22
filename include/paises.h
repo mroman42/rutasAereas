@@ -15,7 +15,7 @@ using std::string;
  */
 struct Pais {
     /**
-     * Nombre del país y ruta de la imagen a la bandera del país.
+     * Nombre del país y de su bandera.
      */
     string nombre;
     string bandera;

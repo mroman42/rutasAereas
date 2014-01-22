@@ -10,7 +10,7 @@ using std::istream;
 /**
  * T.D.A. Punto
  * Contiene la información de un punto del mapa,
- * codificando su ubicación por longitud y latitud, y su descripción.
+ * codificando su ubicación por longitud y latitud.
  */
 class Punto {
 private:
@@ -50,7 +50,19 @@ public:
 	    return latitud_menor or (latitud_igual and longitud_menor);
     }
 
+
+    /**
+     * Lee un punto.
+     * @param input Flujo de lectura.
+     * @param leido Punto donde se leerá.
+     */
     friend std::istream& operator >> (std::istream& input, Punto& leido);
+
+    /**
+     * Muestra por pantalla el bucle.
+     * @param output Flujo de salida.
+     * @param leido Punto en el que se escribirá.
+     */
     friend std::ostream& operator << (std::ostream& output, const Punto& leido);
 };
 

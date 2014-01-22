@@ -42,9 +42,9 @@ private:
      * @see LeerTipoImagen
      */
     enum TipoImagen {
-	DESCONOCIDA,
-	IMAGEN_PGM,
-	IMAGEN_PPM
+        DESCONOCIDA,
+        IMAGEN_PGM,
+        IMAGEN_PPM
     };
 
 
@@ -52,12 +52,6 @@ private:
      * Tipo de la imagen actual.
      */
     TipoImagen tipo;
-
-    /**
-     * Buffer con información en bruto de la imagen.
-     * Información no interpretada de la imagen.
-     */
-    typedef unsigned char* Buffer;
 
 
     /**
@@ -86,32 +80,6 @@ private:
      * @return Verdadero si la lectura tuvo éxito.
      */
     static bool LeerCabecera (std::istream& input, int& filas, int& columnas);
-
-    /**
-     * @brief Lee una imagen de tipo PPM reservando la memoria necesaria.
-     *
-     * @param input Flujo de entrada de la imagen.
-     * @param filas Parámetro de salida con las filas de la imagen.
-     * @param columnas Parámetro de salida con las columnas de la imagen.
-     * @return Buffer con la imagen en bruto. 
-     * El buffer será una zona de memoria para obtener el valor de cada uno de los píxeles
-     * como tripletas consecutivas en formato RGB (RGBRGBRGB...) por filas
-     * desde la esquina superior izquierda a la inferior derecha.
-     */
-    static Buffer leerImagenPPM (std::istream& input, int& filas, int& columnas);
-    
-    /**
-     * @brief Lee una imagen de tipo PGM reservando la memoria necesaria.
-     *
-     * @param input Flujo de entrada de la imagen.
-     * @param filas Parámetro de salida con las filas de la imagen.
-     * @param columnas Parámetro de salida con las columnas de la imagen.
-     * @return Buffer con la imagen en bruto. 
-     * El buffer será una zona de memoria para obtener el valor de cada uno de los píxeles
-     * como un valor de grises por filas desde la esquina superior izquierda a la inferior derecha.
-     */
-    static Buffer leerImagenPGM (std::istream& input, int& filas, int& columnas);
-
 
     /**
      * Salta las líneas de comentarios del flujo de entrada.
@@ -149,7 +117,7 @@ public:
     void rota (double angulo);
 
     /**
-     * @brief Pega una nueva imagen sobre la imagen, que toma como fondo.
+     * @brief Pega una nueva imagen sobre esta imagen, que se toma como fondo.
      * @param imagen Imagen que se pegará.
      * @param mascara Máscara de pegado de la imagen.
      * @param transparente Verdadero si se usará transparencia en el pegado y Falso si debe ser opaco.
@@ -174,9 +142,19 @@ public:
 	return at(0).size();
     }
 
-    
-    friend std::ostream& operator << (std::ostream& output, const Imagen& leida);
+    /**
+     * Lee una imagen completa.
+     * @param input Flujo de lectura.
+     * @param leida Imagen donde se guardará.
+     */
     friend std::istream& operator >> (std::istream& input, Imagen& leida);
+
+    /**
+     * Imprime esta imagen.
+     * @param output Flujo de salida.
+     * @param leida Imagen que se escribirá.
+     */
+    friend std::ostream& operator << (std::ostream& output, const Imagen& leida);
 };
 
 const Imagen VACIA (0,0);

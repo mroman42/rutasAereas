@@ -57,19 +57,11 @@ private:
 
     /**
      * Lee una descripción, añadiéndola al punto.
-     * Incluye la ruta en el almacén.
      * @param input Flujo de lectura.
      */
     void leeDescripcion (istream& input);
     
 public:
-    /**
-     * Lee un almacén completo.
-     * @param input Flujo de lectura del almacén.
-     * @param almacen Almacén donde se leerá.
-     */
-    friend std::istream& operator >> (std::istream& input, Almacen& almacen);
-
     /**
      * Obtiene una ruta del almacén mediante su código.
      * @param codigo Código de la ruta.
@@ -115,6 +107,13 @@ public:
     inline iterator end () {
     	return rutas.end();
     }
+
+    /**
+     * Lee un almacén completo.
+     * @param input Flujo de lectura del almacén.
+     * @param almacen Almacén donde se leerá.
+     */
+    friend std::istream& operator >> (std::istream& input, Almacen& almacen);
 };
 
 /**
