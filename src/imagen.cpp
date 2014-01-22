@@ -8,30 +8,30 @@ void Imagen::pega (const Imagen& imagen, const Imagen& mascara, const bool trans
     int filas = imagen.numFilas();
     int columnas = imagen.numColumnas();
     if ((filas != mascara.numFilas() or columnas != mascara.numColumnas()) and mascara.numFilas() != 0)
-	return;
+        return;
 
     // Copia los pixeles de la imagen dada en la imagen actual.
     if (!transparente) {
-	for (int i=0; i<filas; ++i)
-	    for (int j=0; j<columnas; ++j)
-		if (mascara.numFilas() == 0 or mascara[i][j].transparencia > 0) {
-		    Pixel& actual = at(i+offset_x).at(j+offset_y);
-		    actual = imagen.at(i).at(j);
-		}
+        for (int i=0; i<filas; ++i)
+            for (int j=0; j<columnas; ++j)
+                if (mascara.numFilas() == 0 or mascara[i][j].transparencia > 0) {
+                    Pixel& actual = at(i+offset_x).at(j+offset_y);
+                    actual = imagen.at(i).at(j);
+            }
     }
     else {
-	for (int i=0; i<filas; ++i) {
-	    for (int j=0; j<columnas; ++j) {
-		if (mascara.numFilas() == 0 or mascara[i][j].transparencia > 0) {
-		    Pixel& actual = at(i+offset_x).at(j+offset_y);
-		    Pixel nuevo = imagen[i][j];
+        for (int i=0; i<filas; ++i) {
+            for (int j=0; j<columnas; ++j) {
+                if (mascara.numFilas() == 0 or mascara[i][j].transparencia > 0) {
+                    Pixel& actual = at(i+offset_x).at(j+offset_y);
+                    Pixel nuevo = imagen[i][j];
 
-		    actual.red = actual.red / 2 + nuevo.red / 2;
-		    actual.blue = actual.blue / 2 + nuevo.blue / 2;
-		    actual.green = actual.green / 2 + nuevo.green / 2;
-		}
-	    }
-	}
+                    actual.red = actual.red / 2 + nuevo.red / 2;
+                    actual.blue = actual.blue / 2 + nuevo.blue / 2;
+                    actual.green = actual.green / 2 + nuevo.green / 2;
+                }
+            }
+        }
     }
 }
 
@@ -52,8 +52,8 @@ void Imagen::rota (double angulo) {
     ccorners[0] = 0;
     rcorners[1] = 0;
     ccorners[1] = numColumnas() - 1;
-    ccorners[2] = 0;
     rcorners[2] = numFilas() - 1;
+    ccorners[2] = 0;
     rcorners[3] = numFilas() - 1;
     ccorners[3] = numColumnas() - 1;
 
@@ -66,17 +66,17 @@ void Imagen::rota (double angulo) {
     newimgcols = 0;
 
     for (int count = 0; count < 4; ++count) {
-	inter = rcorners[count] * coseno + ccorners[count] * seno;
-	if (inter < new_row_min)
-	    new_row_min = inter;
-	if (inter > new_row_max)
-	    new_row_max = inter;
-	
-	inter1 = -rcorners[count] * seno + ccorners[count] * coseno;
-	if (inter1 < new_col_min)
-	    new_col_min = inter1;	
-	if (inter1 > new_col_max)
-	    new_col_max = inter1;
+        inter = rcorners[count] * coseno + ccorners[count] * seno;
+        if (inter < new_row_min)
+            new_row_min = inter;
+        if (inter > new_row_max)
+            new_row_max = inter;
+
+        inter1 = -rcorners[count] * seno + ccorners[count] * coseno;
+        if (inter1 < new_col_min)
+            new_col_min = inter1;	
+        if (inter1 > new_col_max)
+            new_col_max = inter1;
     }
     
     newimgrows = (unsigned) ceil((double) new_row_max - new_row_min);
@@ -89,26 +89,26 @@ void Imagen::rota (double angulo) {
     Iout.tipo = tipo;
     
     for (int rows = 0; rows<newimgrows; ++rows) {
-	for (int cols = 0; cols<newimgcols; ++cols) {
-	    // Busca el pixel que, rotado, da como imagen el pixel actual.
-	    float oldrowcos = ((float) rows + new_row_min) * coseno;
-	    float oldrowsin = ((float) rows + new_row_min) * seno;
-	    float oldcolcos = ((float) cols + new_col_min) * coseno;
-	    float oldcolsin = ((float) cols + new_col_min) * seno;
-	    float old_row = oldrowcos - oldcolsin;
-	    float old_col = oldrowsin + oldcolcos;
-	    
-	    old_row = ceil((double) old_row);
-	    old_col = ceil((double) old_col);
-	    
-	    // Si existía en la imagen original, lo copia en la nueva imagen.
-	    if (old_row >= 0 and old_row < numFilas() and old_col >= 0 and old_col < numColumnas())
-	    	Iout[rows][cols] = at(old_row).at(old_col);
-	    else {
-	    	Iout[rows][cols].red = Iout[rows][cols].green = Iout[rows][cols].blue = 255;
-		Iout[rows][cols].transparencia = 0;
+	    for (int cols = 0; cols<newimgcols; ++cols) {
+	        // Busca el pixel que, rotado, da como imagen el pixel actual.
+	        float oldrowcos = ((float) rows + new_row_min) * coseno;
+	        float oldrowsin = ((float) rows + new_row_min) * seno;
+	        float oldcolcos = ((float) cols + new_col_min) * coseno;
+	        float oldcolsin = ((float) cols + new_col_min) * seno;
+	        float old_row = oldrowcos - oldcolsin;
+	        float old_col = oldrowsin + oldcolcos;
+	        
+	        old_row = ceil((double) old_row);
+	        old_col = ceil((double) old_col);
+	        
+	        // Si existía en la imagen original, lo copia en la nueva imagen.
+	        if (old_row >= 0 and old_row < numFilas() and old_col >= 0 and old_col < numColumnas())
+                Iout[rows][cols] = at(old_row).at(old_col);
+	        else {
+                Iout[rows][cols].red = Iout[rows][cols].green = Iout[rows][cols].blue = 255;
+                Iout[rows][cols].transparencia = 0;
+	        }
 	    }
-	}
     }
 
     (*this) = Iout;
@@ -120,42 +120,45 @@ void Imagen::rota (double angulo) {
  * Funciones de lectura de las imágenes.
  * Operador de lectura y funciones auxiliares.
  */
-
 istream& operator >> (istream& input, Imagen& leida) {
+    //Determinamos qué tipo de imagen es
     Imagen::TipoImagen tipo = Imagen::leerTipoImagen(input);
     int filas, columnas;
 
+    /*Leemos filas y columnas, y pasamos el resto de información
+    hasta llegar a donde están los pixeles de la imagen.*/
     if (!leida.LeerCabecera (input, filas, columnas))
 	cerr << "Error al leer la cabecera";
     
-    // Lleva el buffer a la matriz de la imagen.
-    // Controla el tamaño del buffer según filas y columnas.
     leida = Imagen(filas, columnas);
     leida.tipo = tipo;
 
+    /*Si es una imagen en color, rellenamos red, blue and green
+    y transparencia recibe una constante.*/
     if (tipo == Imagen::IMAGEN_PPM) {
-    for (int j=0; j<columnas; ++j) {
-    	for (int i=0; i<filas; ++i) {
-
-		Pixel& actual = leida[i][j];
-		actual.red   = input.get();
-		actual.green = input.get();
-		actual.blue  = input.get();
-		actual.transparencia = 0;
-	    }
-	}
+        for (int j=0; j<columnas; ++j) {
+            for (int i=0; i<filas; ++i) {
+                Pixel& actual = leida[i][j];
+                actual.red   = input.get();
+                actual.green = input.get();
+                actual.blue  = input.get();
+                actual.transparencia = 0;
+            }
+        }
     }
     
+    /*Si es una imagen en blanco y negro, rellenamos transparencia
+    y red, blue and green reciben unas constantes.*/
     if (tipo == Imagen::IMAGEN_PGM) {
-    for (int j=0; j<columnas; ++j){
-    	for (int i=0; i<filas; ++i) {
-		Pixel& actual = leida[i][j];
-		actual.red   = 0;
-		actual.green = 0;
-		actual.blue  = 0;
-		actual.transparencia = input.get();
-	    }
-	}	
+        for (int j=0; j<columnas; ++j){
+            for (int i=0; i<filas; ++i) {
+                Pixel& actual = leida[i][j];
+                actual.red   = 0;
+                actual.green = 0;
+                actual.blue  = 0;
+                actual.transparencia = input.get();
+            }
+        }	
     }
 
     return input;
@@ -174,21 +177,20 @@ Imagen::TipoImagen Imagen::leerTipoImagen (istream& input) {
     char c1, c2;
   
     if (input) {
-	c1 = input.get();
-	c2 = input.get();
+        c1 = input.get();
+        c2 = input.get();
 
-	if (input and c1 == 'P') {
-	    switch (c2) { 
-	    case '5': tipo = IMAGEN_PGM; break;
-	    case '6': tipo = IMAGEN_PPM; break;
-	    }
-	}
+        if (input and c1 == 'P') {
+            switch (c2) { 
+                case '5': tipo = IMAGEN_PGM; break;
+                case '6': tipo = IMAGEN_PPM; break;
+            }
+        }
     }
 
     return tipo;
 
 }
-
 
 
 bool Imagen::LeerCabecera (istream& input, int& filas, int& columnas) {
@@ -210,7 +212,7 @@ void Imagen::saltarComentarios (istream& input) {
     // Salta todas las líneas que comiencen con #.
     static const int SALTO_MAXIMO = 10000;
     while (saltarSeparadores(input) == '#')
-	input.ignore (SALTO_MAXIMO, '\n');
+        input.ignore (SALTO_MAXIMO, '\n');
 }
 
 
@@ -219,8 +221,9 @@ char Imagen::saltarSeparadores (istream& input) {
     char leido;
 
     do 
-	leido = input.get();
+        leido = input.get();
     while (isspace(leido));
+
     input.putback(leido);
 
     return leido;
@@ -232,7 +235,6 @@ char Imagen::saltarSeparadores (istream& input) {
  * Funciones de escritura de las imágenes.
  * Operador de escritura y funciones auxiliares.
  */
-
 ostream& operator << (std::ostream& output, const Imagen& imagen) {
     static const int MAXIMO = 255; 
     int filas = imagen.numFilas();
@@ -240,37 +242,42 @@ ostream& operator << (std::ostream& output, const Imagen& imagen) {
 
     // Escribe como imagen PPM.
     if (imagen.tipo == Imagen::IMAGEN_PPM) {
-	if (output) {
-	    output << "P6" << endl;
-	    output << filas << ' ' << columnas << endl;
-	    output << MAXIMO << endl;
-	
-	    for (int j=0; j<columnas; ++j)
-        for (int i=0; i<filas; ++i){
-		    const Pixel& actual = imagen[i][j];
-		    output << actual.red << actual.green << actual.blue;
-		}
-	}
+        if (output) {
+            output << "P6" << endl;
+            output << filas << ' ' << columnas << endl;
+            output << MAXIMO << endl;
+
+            /*No Mostramos la transparencia porque, en las imágenes PPM,
+            no tenía un valor significativo*/
+            for (int j=0; j<columnas; ++j){
+                for (int i=0; i<filas; ++i){
+                    const Pixel& actual = imagen[i][j];
+                    output << actual.red << actual.green << actual.blue;
+                }
+            }
+        }
     }
 
     // Escribe como imagen PGM.
     else if (imagen.tipo == Imagen::IMAGEN_PGM) {
-	if (output) {
-	    output << "P5" << endl;
-	    output << filas << ' ' << columnas << endl;
-	    output << MAXIMO << endl;
+        if (output) {
+            output << "P5" << endl;
+            output << filas << ' ' << columnas << endl;
+            output << MAXIMO << endl;
 
-        for (int j=0; j<columnas; ++j)
-        for (int i=0; i<filas; ++i){
-		    const Pixel& actual = imagen.at(i).at(j);
-		    output << actual.transparencia;
-		}
-	}
+            /*Mostramos sólo la transparencia porque, en las imágenes PGM,
+            red, green y blue no tenían un valor significativo*/
+            for (int j=0; j<columnas; ++j)
+                for (int i=0; i<filas; ++i){
+                    const Pixel& actual = imagen.at(i).at(j);
+                    output << actual.transparencia;
+                }
+        }
     }
 
     // Escribe un error si se desconoce el tipo de la imagen.
     else {
-	output << "ERROR: Tipo desconocido.\n";
+        output << "ERROR: Tipo desconocido.\n";
     }
 
     return output;
